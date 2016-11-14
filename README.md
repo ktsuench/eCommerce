@@ -1,5 +1,5 @@
 # eCommerce
-This is a project for _COE528 - Object Oriented Engineering Analysis and Design _.
+This is a project for _COE528_ - _Object_ _Oriented_ _Engineering_ _Analysis_ _and_ _Design_.
 
 We will be using NetBeans IDE to build this project along with Violet UML Editor to build the UML diagrams. As well, we will be using Github to sync everyone's work together. Refer to the project tab for tasks and requirements for the project.
 
