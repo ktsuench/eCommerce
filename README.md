@@ -7,4 +7,4 @@ To get started, clone this repo in NetBeans by going to __Team>Git>Clone__ and c
 
 This will be the same as the labs, however the difference here is that we will be collaborating together to complete a project. To make things easier, each of us will be working on different classes so that we won't overwrite each other's code.
 
-To update Github with your local modifications, go to the file that you want to add to the remote repository. Then go to __Team>Add__ and then __Team>Commit__. Fill in the commit message and then go to __Team>Remote>Pull__ to update your local repository before you update the remote one. After go to __Team>Remote>Push to push__ your local modifications to the remote repository.
+To update Github with your local modifications, go to the file that you want to add to the remote repository. Then go to __Team>Add__ and then __Team>Commit__. Fill in the commit message and then go to __Team>Remote>Pull__ to update your local repository before you update the remote one. After go to __Team>Remote>Push__ to push your local modifications to the remote repository.
