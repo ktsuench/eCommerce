@@ -5,19 +5,55 @@ package com.KST.eCommerce;
  * @author Kent Tsuenchy
  */
 public abstract class User {
-    private String name;
-    private int id;
-    
-    public User(String name, int id) {
-        this.name = name;
-        this.id = id;
+
+    /**
+     * OVERVIEW
+     */
+    // Enumeration for User Roles
+    public enum UserRole {
+        seller, guest
     }
-    
+
+    // Instance Variables
+    protected String name;
+    protected UserRole role;
+
+    /**
+     * Class Constructor
+     *
+     * @param name
+     */
+    public User(String name) {
+        this.name = name;
+        this.role = User.UserRole.guest;
+    }
+
+    /**
+     * Class Constructor
+     *
+     * @param name
+     * @param role
+     */
+    public User(String name, UserRole role) {
+        this.name = name;
+        this.role = role;
+    }
+
+    /**
+     * Returns name of the user.
+     *
+     * @return this.name
+     */
     public String getName() {
         return this.name;
     }
-    
-    public int getId() {
-        return this.id;
+
+    /**
+     * Returns role of the user.
+     *
+     * @return this.role
+     */
+    public UserRole getRole() {
+        return this.role;
     }
 }
