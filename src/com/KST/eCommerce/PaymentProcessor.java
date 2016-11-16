@@ -4,7 +4,7 @@ package com.KST.eCommerce;
  *
  * @author Kureishi Shivanand
  */
-public class PaymentProcessing {
+public class PaymentProcessor {
     
     /**
      * Prints processing message
