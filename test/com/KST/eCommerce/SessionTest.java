@@ -42,7 +42,7 @@ public class SessionTest {
     public void testLogin() {
         System.out.println("login");
         ArrayList<User> users = new ArrayList();
-        users.add(new Seller("name", "pass"));
+        users.add(new Seller("name", 1, "pass"));
         String name = "Name";
         String password = "Password";
         Session instance = new Session();
@@ -63,7 +63,7 @@ public class SessionTest {
     public void testTrueLogin() {
         System.out.println("login");
         ArrayList<User> users = new ArrayList();
-        users.add(new Seller("name", "pass"));
+        users.add(new Seller("name", 1, "pass"));
         String name = "name";
         String password = "pass";
         Session instance = new Session();
@@ -94,7 +94,7 @@ public class SessionTest {
     public void testTrueLogout() {
         System.out.println("logout");
         ArrayList<User> users = new ArrayList();
-        users.add(new Seller("name", "pass"));
+        users.add(new Seller("name", 1, "pass"));
         String name = "name";
         String password = "pass";
         Session instance = new Session();
