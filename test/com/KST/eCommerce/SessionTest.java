@@ -156,10 +156,10 @@ public class SessionTest {
      * Test of addItemFromStore method, of class Session.
      */
     @Test
-    public void testAddItemFromStore() {
+    public void testRemoveItemFromStore() {
         System.out.println("addItemFromStore");
         Item item = null;
         Session instance = new Session();
-        instance.addItemFromStore(item);
+        instance.removeItemFromStore(item);
     }
 }
