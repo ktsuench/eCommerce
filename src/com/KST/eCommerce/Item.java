@@ -23,7 +23,7 @@ public class Item {
     //      c.description = a text description of the item. 
     //      c.price = Price of the item (repersented in dollars, eg. $5.00)     
     
-    //Rep Inveriant: 
+    //Rep Invariant: 
     //c.title must be the valid title for the item.
     //c.description must be a valid description for the item.
     //c.id >= 0
@@ -87,7 +87,7 @@ public class Item {
     
     public boolean repOk(){ 
         //EFFECTS: Returns true if the rep invariant holds for this, 
-        //otherwier it returns false.    
+        //otherwise it returns false.    
         if(id < 0 || price < 0 ){ 
             return false;
         } else { 
