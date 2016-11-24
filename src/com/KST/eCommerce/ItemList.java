@@ -10,7 +10,9 @@ package com.KST.eCommerce;
  * @author Tejveer
  */
 public interface ItemList {
+
     //Abstract methods
     public void addItem(Item item);
-    public void removeItem(Item item); 
+
+    public void removeItem(Item item);
 }

@@ -33,7 +33,7 @@ public class XMLHandler {
 
     private void getUser() {
         boolean foundEl = false;
-        
+
         while (!foundEl && this.userIndex++ < this.users.getLength() - 1) {
             if (this.users.item(this.userIndex).getNodeType() == Node.ELEMENT_NODE) {
                 this.user = (Element) this.users.item(this.userIndex);
@@ -49,7 +49,7 @@ public class XMLHandler {
 
     private void getItem() {
         boolean foundEl = false;
-        
+
         while (!foundEl && this.itemIndex++ < this.items.getLength() - 1) {
             if (this.items.item(this.itemIndex).getNodeType() == Node.ELEMENT_NODE) {
                 this.item = (Element) this.items.item(this.itemIndex);
@@ -77,17 +77,15 @@ public class XMLHandler {
 
         if (notEnd) {
             getItem();
-            
+
             /**
-             * Hot Fix
-             * Unsure what extra nodes in items NodeList are.
-             * Needs to check again to see if at end of list.
-             * Assumes that the last few nodes in list does not contain
-             * an actual item.
+             * Hot Fix Unsure what extra nodes in items NodeList are. Needs to
+             * check again to see if at end of list. Assumes that the last few
+             * nodes in list does not contain an actual item.
              */
             notEnd = notAtEndOfNodeList(this.items, this.itemIndex);
-            
-            if(!notEnd) {
+
+            if (!notEnd) {
                 this.itemIndex = -1;
             }
         } else {
@@ -120,7 +118,7 @@ public class XMLHandler {
     public int getItemId() {
         return Integer.parseInt(this.item.getAttribute("id"));
     }
-    
+
     public String getItemTitle() {
         return getTagValue(this.item, "title").getTextContent();
     }
@@ -138,13 +136,13 @@ public class XMLHandler {
 
         do {
             System.out.println("-------------------------------------------");
-            System.out.println(xmlHandler.getId()+" "+xmlHandler.getName());
+            System.out.println(xmlHandler.getId() + " " + xmlHandler.getName());
             System.out.println(xmlHandler.getPassword());
 
             do {
-                System.out.println("\t"+xmlHandler.getItemId()+" "+xmlHandler.getItemTitle());
-                System.out.println("\t"+xmlHandler.getItemDescription());
-                System.out.println("\t"+xmlHandler.getItemPrice()+"\n");
+                System.out.println("\t" + xmlHandler.getItemId() + " " + xmlHandler.getItemTitle());
+                System.out.println("\t" + xmlHandler.getItemDescription());
+                System.out.println("\t" + xmlHandler.getItemPrice() + "\n");
             } while (xmlHandler.nextItem());
         } while (xmlHandler.nextUser());
     }

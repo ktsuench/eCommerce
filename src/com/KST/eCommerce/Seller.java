@@ -72,7 +72,7 @@ public class Seller extends User implements ItemList {
                 }
             }
         }
-        
+
         return true;
     }
 }

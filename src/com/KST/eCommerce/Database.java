@@ -10,11 +10,10 @@ import java.util.ArrayList;
  */
 public class Database {
 
-    private final String filename = "users.data";
-    private final File dbFile;
+    private File dbFile;
 
-    public Database() {
-        dbFile = new File(this.filename);
+    public Database(String filename) {
+        dbFile = new File(filename);
     }
 
     public ArrayList<User> readUsers() {
@@ -38,11 +37,15 @@ public class Database {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        
+
         return users;
     }
 
     public void writeUsers(ArrayList<User> users) {
 
+    }
+    
+    public void closeDb() {
+        this.dbFile = null;
     }
 }

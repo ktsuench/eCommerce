@@ -34,9 +34,9 @@ public class Session {
     public boolean login(ArrayList<User> users, String name, String password) throws Exception {
 
         if (users == null) {
-            throw new Exception ("Users is null");
+            throw new Exception("Users is null");
         }
-                
+
         int i = -1;
         User tempUser;
 
