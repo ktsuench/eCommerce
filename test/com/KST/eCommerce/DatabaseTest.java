@@ -15,7 +15,7 @@ import static org.junit.Assert.*;
 
 /**
  *
- * @author Ken
+ * @author Kent Tsuenchy
  */
 public class DatabaseTest {
     
@@ -82,7 +82,7 @@ public class DatabaseTest {
         Database instance = new Database();
         instance.writeUsers(users);
         // TODO review the generated test code and remove the default call to fail.
-        //fail("The test case is a prototype.");
+        fail("Implement writing to file.");
     }
     
 }
