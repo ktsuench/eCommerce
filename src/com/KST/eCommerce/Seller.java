@@ -20,8 +20,9 @@ public class Seller extends User implements ItemList {
     //      c.password = Seller.password 
     
     //Rep Invariant: 
-    //
-    // 
+    // c.items!= null
+    // c.id >= 0 
+  
     
     // Instance Variables
     private final int id;
@@ -79,7 +80,7 @@ public class Seller extends User implements ItemList {
             items.remove(item);
             return true; 
         }
-        ////check if the item is null and ceck if the item exists
+        
     }
 
     @Override
@@ -109,4 +110,26 @@ public class Seller extends User implements ItemList {
 
         return true;
     }
+    
+    public boolean repOk(){ 
+       if(id < 0 || items == null ){ 
+            return false;
+        } else { 
+            return true; 
+        } 
+    }
+    // we should look this over
+     @Override
+    public String toString() {
+        
+        if (repOk() == true) { 
+            return "Valid Rep Invariant"; 
+        } else { 
+            return "Invalid Rep Invariant"; 
+        }
+    }
+    
+    
+    
+    
 }
