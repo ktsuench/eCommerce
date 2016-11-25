@@ -1,6 +1,7 @@
 package com.KST.eCommerce;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  *
@@ -61,6 +62,14 @@ public class Seller extends User implements ItemList {
         items.remove(item);
     }
 
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 31 * hash + Objects.hashCode(this.items);
+        return hash;
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (o == null) {
             return false;
