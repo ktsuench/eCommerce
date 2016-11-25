@@ -11,6 +11,14 @@ public class Session {
     // the options of adding/removing iteams to their cart or adding/removing items 
     // to the store, depending on whether the user is a guest or seller, repsectively.
     
+    // AF(c) = {c.session.users | c.users.name = name && c.users.password = password}
+    
+    // The rep invariant is:
+    // c.users != null &&
+    // for all integers i, j,
+    // (0 <= i < j < c.users.size) =>
+    // (c.users.[i].name || c.users.[i].password) != (c.users.[j].name || c.users.[j].password)
+    
     // Instance Variables
     private boolean isLoggedIn;
     private User user;
@@ -139,5 +147,29 @@ public class Session {
         //          i.e. (Seller)user_post = (Seller)user - {item}
         
         ((Seller) user).removeItem(item);
+    }
+    
+    /**
+     * Rep-OK Function for Representation 
+     * 
+     * @return boolean
+     */
+    public boolean repOK() {
+        
+        if (user == null) {
+            return false;
+        }
+                
+        return true;
+    }
+    
+    /**
+     * toString for Abstract Function
+     * 
+     * @return String
+     */
+    @Override
+    public String toString() {
+        return "Name" + user.getName() + "Role" + user.getRole();
     }
 }
