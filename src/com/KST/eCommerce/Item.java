@@ -68,6 +68,7 @@ public class Item {
 
     }
 
+    @Override
     public boolean equals(Object o) {
         if (o == null) {
             return false;
@@ -82,6 +83,13 @@ public class Item {
         }
 
         return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 79 * hash + this.id;
+        return hash;
     }
     
     
