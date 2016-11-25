@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @author Tejveer
+ * @author Tejveer Jajj
  */
 
 
@@ -38,7 +38,7 @@ public class ItemCart implements ItemList {
         //         also initinalizes items as a new ArrayList.  
         
         this.numberOfItems = 0;
-        ArrayList<Item> items = new ArrayList();
+        this.items = new ArrayList();
     }
 
     //Methods
@@ -69,13 +69,9 @@ public class ItemCart implements ItemList {
     }
     
     public boolean repOk(){ 
-        //EFFECTS: Returns ture if the rep invariant holds for this, 
-        //otherwise it returns false.   
-        if(items == null || numberOfItems < 0){ 
-            return false; 
-        }else{ 
-        return true ;
-        }
+        //EFFECTS: Returns ture if the rep invariant holds for this,
+        //otherwise it returns false.
+        return !(items == null || numberOfItems < 0);
     }
     
     @Override
