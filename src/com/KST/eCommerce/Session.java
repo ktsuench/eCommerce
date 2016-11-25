@@ -51,7 +51,7 @@ public class Session {
         if (users == null) {                                            // if their are no User objects
             throw new Exception ("No users");
         }
-                
+
         int i = -1;
         User tempUser;
 

@@ -5,12 +5,18 @@
  */
 package com.KST.eCommerce;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Tejveer
  */
 public interface ItemList {
+
     //Abstract methods
+    public ArrayList<Item> getItems();
+    
     public void addItem(Item item);
-    public void removeItem(Item item); 
+
+    public void removeItem(Item item);
 }

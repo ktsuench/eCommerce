@@ -8,7 +8,7 @@ public class PaymentProcessor {
     
     /**
      * Prints processing message
-     * 
+     *
      */
     public void processPayment() {
         // EFFECTS: Prints the message to indicate local session is ending

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<users>
+    <user role="seller" id="1">
+        <name>bob</name>
+        <password>12345678</password>
+        <items>
+            <item id="11">
+                <title>Power Bank</title>
+                <description>16000 mAh, quick charge 2.0</description>
+                <price>30.00</price>
+            </item>
+            <item id="12">
+                <title>USB 3.0 Wire</title>
+                <description>200 cm in length</description>
+                <price>10.00</price>
+            </item>
+            <item id="13">
+                <title>4 port USB 3.0 Hub</title>
+                <description>Max power: 900 mAh</description>
+                <price>17.00</price>
+            </item>
+        </items>
+    </user>
+    <user role="seller" id="2">
+        <name>sue</name>
+        <password>12345678</password>
+        <items>
+            <item id="21">
+                <title>Nail Polish</title>
+                <description>Pink</description>
+                <price>10.00</price>
+            </item>
+            <item id="22">
+                <title>Beats by Dr. Dre</title>
+                <description>High Quality</description>
+                <price>200.00</price>
+            </item>
+            <item id="23">
+                <title>iPhone 7</title>
+                <description>Refurbished</description>
+                <price>550.00</price>
+            </item>
+            <item id="24">
+                <title>Apple Watch</title>
+                <description>Refurbished</description>
+                <price>525.00</price>
+            </item>
+        </items>
+    </user>
+    <user role="seller" id="3">
+        <name>hugo</name>
+        <password>12345678</password>
+        <items>
+            <item id="31">
+                <title>Arduino</title>
+                <description>Starter Kit</description>
+                <price>99.99</price>
+            </item>
+            <item id="32">
+                <title>Intel Edison</title>
+                <description>Starter Kit</description>
+                <price>99.99</price>
+            </item>
+        </items>
+    </user>
+</users>
