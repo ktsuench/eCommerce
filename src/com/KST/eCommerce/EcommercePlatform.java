@@ -22,11 +22,27 @@ public class EcommercePlatform {
         db.closeDb();
     }
 
-    public void listItems() {
+    public ArrayList<Item> listItems() {
+        ArrayList<Item> items = new ArrayList<>();
 
+        for (User u : users) {
+            for (Item i : ((Seller) u).getItems()) {
+                items.add(i);
+            }
+        }
+
+        return (ArrayList<Item>) items.clone();
     }
 
     public void showInterface() {
+        EcommerceGUI guiInterface = new EcommerceGUI();
 
+        guiInterface.showGUI(this.listItems());
+    }
+
+    public static void main(String[] args) {
+        EcommercePlatform platform = new EcommercePlatform();
+        
+        platform.showInterface();
     }
 }
