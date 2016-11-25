@@ -8,6 +8,8 @@ package com.KST.eCommerce;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.util.ArrayList;
+import javax.swing.ListModel;
+import javax.swing.event.ListDataListener;
 
 /**
  *
@@ -31,11 +33,14 @@ public class EcommerceGUI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        viewHome = new javax.swing.JPanel();
+        panelHeader = new javax.swing.JPanel();
+        buttonCart = new javax.swing.JButton();
+        buttonLogin = new javax.swing.JButton();
+        labelLogo = new javax.swing.JLabel();
+        panelBody = new javax.swing.JPanel();
+        viewCart = new javax.swing.JPanel();
+        viewListItems = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("eCommerce");
@@ -49,79 +54,125 @@ public class EcommerceGUI extends javax.swing.JFrame {
         setPreferredSize(new java.awt.Dimension(600, 600));
         setResizable(false);
         setSize(new java.awt.Dimension(600, 600));
+        getContentPane().setLayout(new java.awt.CardLayout());
 
-        jPanel1.setBackground(java.awt.SystemColor.textHighlight);
-        jPanel1.setForeground(java.awt.SystemColor.window);
-        jPanel1.setToolTipText("");
+        viewHome.setPreferredSize(new java.awt.Dimension(600, 600));
 
-        jButton3.setText("Cart");
+        panelHeader.setBackground(java.awt.SystemColor.textHighlight);
+        panelHeader.setForeground(java.awt.SystemColor.window);
+        panelHeader.setToolTipText("");
 
-        jButton4.setText("Login");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+        buttonCart.setText("Cart");
+        buttonCart.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                buttonCartMouseClicked(evt);
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("eCommerce");
+        buttonLogin.setText("Login");
+        buttonLogin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonLoginActionPerformed(evt);
+            }
+        });
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 282, Short.MAX_VALUE)
-                .addComponent(jButton4)
-                .addGap(18, 18, 18)
-                .addComponent(jButton3)
-                .addGap(24, 24, 24))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(0, 13, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton3)
-                    .addComponent(jButton4)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
-        );
+        labelLogo.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        labelLogo.setForeground(new java.awt.Color(255, 255, 255));
+        labelLogo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelLogo.setText("eCommerce");
 
-        jScrollPane1.setBackground(new java.awt.Color(255, 255, 255));
-        jScrollPane1.setName("listItems"); // NOI18N
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
+        javax.swing.GroupLayout panelHeaderLayout = new javax.swing.GroupLayout(panelHeader);
+        panelHeader.setLayout(panelHeaderLayout);
+        panelHeaderLayout.setHorizontalGroup(
+            panelHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelHeaderLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1)
-                .addContainerGap())
+                .addComponent(labelLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(buttonLogin)
+                .addGap(18, 18, 18)
+                .addComponent(buttonCart)
+                .addGap(27, 27, 27))
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 528, Short.MAX_VALUE)
-                .addContainerGap())
+        panelHeaderLayout.setVerticalGroup(
+            panelHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelHeaderLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(buttonLogin)
+                    .addComponent(buttonCart))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jScrollPane1.getAccessibleContext().setAccessibleName("listItems");
-        jScrollPane1.getAccessibleContext().setAccessibleDescription("");
+        panelBody.setPreferredSize(new java.awt.Dimension(600, 552));
+
+        javax.swing.GroupLayout panelBodyLayout = new javax.swing.GroupLayout(panelBody);
+        panelBody.setLayout(panelBodyLayout);
+        panelBodyLayout.setHorizontalGroup(
+            panelBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 600, Short.MAX_VALUE)
+        );
+        panelBodyLayout.setVerticalGroup(
+            panelBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 546, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout viewHomeLayout = new javax.swing.GroupLayout(viewHome);
+        viewHome.setLayout(viewHomeLayout);
+        viewHomeLayout.setHorizontalGroup(
+            viewHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(panelHeader, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(panelBody, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        viewHomeLayout.setVerticalGroup(
+            viewHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(viewHomeLayout.createSequentialGroup()
+                .addComponent(panelHeader, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panelBody, javax.swing.GroupLayout.DEFAULT_SIZE, 546, Short.MAX_VALUE))
+        );
+
+        getContentPane().add(viewHome, "viewHome");
+
+        javax.swing.GroupLayout viewCartLayout = new javax.swing.GroupLayout(viewCart);
+        viewCart.setLayout(viewCartLayout);
+        viewCartLayout.setHorizontalGroup(
+            viewCartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 600, Short.MAX_VALUE)
+        );
+        viewCartLayout.setVerticalGroup(
+            viewCartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 608, Short.MAX_VALUE)
+        );
+
+        getContentPane().add(viewCart, "viewCart");
+
+        javax.swing.GroupLayout viewListItemsLayout = new javax.swing.GroupLayout(viewListItems);
+        viewListItems.setLayout(viewListItemsLayout);
+        viewListItemsLayout.setHorizontalGroup(
+            viewListItemsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 600, Short.MAX_VALUE)
+        );
+        viewListItemsLayout.setVerticalGroup(
+            viewListItemsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 608, Short.MAX_VALUE)
+        );
+
+        getContentPane().add(viewListItems, "viewListItems");
+        viewListItems.getAccessibleContext().setAccessibleName("");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void buttonLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonLoginActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_buttonLoginActionPerformed
+
+    private void buttonCartMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonCartMouseClicked
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_buttonCartMouseClicked
 
     public void centreWindow() {
         Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
@@ -162,17 +213,21 @@ public class EcommerceGUI extends javax.swing.JFrame {
             public void run() {
                 reference.centreWindow();
                 reference.setVisible(true);
-                for(Item i: items)
-                    System.out.println(i);
+                
+                /* Find out how to list items as strings */
+                //reference.listItems.setModel();
             }
         });
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JButton buttonCart;
+    private javax.swing.JButton buttonLogin;
+    private javax.swing.JLabel labelLogo;
+    private javax.swing.JPanel panelBody;
+    private javax.swing.JPanel panelHeader;
+    private javax.swing.JPanel viewCart;
+    private javax.swing.JPanel viewHome;
+    private javax.swing.JPanel viewListItems;
     // End of variables declaration//GEN-END:variables
 }
