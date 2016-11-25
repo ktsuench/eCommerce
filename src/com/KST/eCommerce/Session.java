@@ -12,13 +12,13 @@ public class Session {
     // to the store, depending on whether the user is a guest or seller, repsectively.
     
     // AF(c) = {c.session.users | c.users.name = name && c.users.password = password}
-    // c.session.users 
+    // c.session.users = user who are currently using the session
     
     // The rep invariant is:
     // c.users != null &&
     // for all integers i, j,
     // (0 <= i < j < c.users.size) =>
-    // (c.users.[i].name || c.users.[i].password) != (c.users.[j].name || c.users.[j].password)
+    // (c.users.[i].name || c.users.[i].password) == (c.users.[j].name || c.users.[j].password)
     
     // Instance Variables
     private boolean isLoggedIn;
@@ -116,12 +116,12 @@ public class Session {
      *
      * @param item
      */
-    public void removeFromCart(Item item) {
+    public boolean removeFromCart(Item item) {
         // MODIFIES: cart   
         // EFFECTS: removes the specified item from the cart
         //          i.e. cart_post = cart - {item}
         
-        cart.removeItem(item);
+        return cart.removeItem(item);
     }
 
     /**
@@ -171,6 +171,11 @@ public class Session {
      */
     @Override
     public String toString() {
-        return "Name" + user.getName() + "Role" + user.getRole();
+        if (repOK() == true) {
+            return "Valid";
+        }
+        else {
+            return "Invalid";
+        }
     }
 }

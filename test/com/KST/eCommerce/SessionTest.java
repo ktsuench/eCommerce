@@ -11,7 +11,7 @@ import static org.junit.Assert.*;
  * @author Kureishi Shivanand
  */
 public class SessionTest {
-
+                            
     public SessionTest() {
     }
 
@@ -96,17 +96,7 @@ public class SessionTest {
         boolean logout = instance.logout();
         assertTrue(logout);
     }
-
-    /**
-     * Test of purchase method, of class Session.
-     */
-    /*@Test
-    public void testPurchase() {
-        System.out.println("purchase");
-        PaymentProcessor checkout = null;
-        Session instance = new Session();
-        instance.purchase(checkout);
-    }*/
+    
     /**
      * Test of addToCart method, of class Session.
      */
@@ -124,9 +114,10 @@ public class SessionTest {
     @Test
     public void testRemoveFromCart() {
         System.out.println("removeFromCart");
-        Item item = null;
+        Item item = new Item(1, "abc", "abc", 25.3);
         Session instance = new Session();
-        instance.removeFromCart(item);
+        instance.addToCart(item);
+        assertTrue(instance.removeFromCart(item));
     }
 
     /**
@@ -135,7 +126,7 @@ public class SessionTest {
     @Test
     public void testAddItemToStore() {
         System.out.println("addItemToStore");
-        Item item = null;
+        Item item = new Item(2, "def", "def", 35.7);
         Session instance = new Session();
         instance.addItemToStore(item);
     }
@@ -145,8 +136,10 @@ public class SessionTest {
      */
     @Test
     public void testRemoveItemFromStore() {
+        
+        
         System.out.println("removeItemFromStore");
-        Item item = null;
+        Item item = new Item(2, "def", "def", 35.7);
         Session instance = new Session();
         instance.removeItemFromStore(item);
     }
