@@ -47,6 +47,11 @@ public class Seller extends User implements ItemList {
     }
 
     @Override
+    public ArrayList<Item> getItems() {
+        return (ArrayList<Item>) this.items.clone();
+    }
+    
+    @Override
     public void addItem(Item item) {
         items.add(item);
     }

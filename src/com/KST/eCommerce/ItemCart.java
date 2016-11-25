@@ -48,6 +48,11 @@ public class ItemCart implements ItemList {
     }
 
     @Override
+    public ArrayList<Item> getItems() {
+        return (ArrayList<Item>) this.items.clone();
+    }
+    
+    @Override
     public void addItem(Item item) {
         //MODIFIES: items
         //EFFECTS: overrides the abstract method addItem. Adds the selected item 

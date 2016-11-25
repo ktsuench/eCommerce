@@ -5,6 +5,8 @@
  */
 package com.KST.eCommerce;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Tejveer
@@ -12,6 +14,8 @@ package com.KST.eCommerce;
 public interface ItemList {
 
     //Abstract methods
+    public ArrayList<Item> getItems();
+    
     public void addItem(Item item);
 
     public void removeItem(Item item);
