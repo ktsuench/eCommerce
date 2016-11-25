@@ -31,8 +31,6 @@ public class SessionTest {
         System.out.println("Session");
         Session instance = new Session();
         instance.Session();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -102,9 +100,9 @@ public class SessionTest {
         try {
             boolean login = instance.login(users, name, password);
         } catch (Exception e) {
-            fail("login failed");
+            fail("logout failed");
         }
-
+        
         boolean logout = instance.logout();
         assertTrue(logout);
     }
@@ -125,7 +123,7 @@ public class SessionTest {
     @Test
     public void testAddToCart() {
         System.out.println("addToCart");
-        Item item = null;
+        Item item = new Item(1, "abc", "abc", 25.3);
         Session instance = new Session();
         instance.addToCart(item);
     }
@@ -157,7 +155,7 @@ public class SessionTest {
      */
     @Test
     public void testRemoveItemFromStore() {
-        System.out.println("addItemFromStore");
+        System.out.println("removeItemFromStore");
         Item item = null;
         Session instance = new Session();
         instance.removeItemFromStore(item);
