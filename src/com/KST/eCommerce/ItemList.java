@@ -18,5 +18,5 @@ public interface ItemList {
     
     public void addItem(Item item);
 
-    public void removeItem(Item item);
+    public boolean removeItem(Item item);
 }

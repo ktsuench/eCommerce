@@ -9,6 +9,20 @@ import java.util.Objects;
  */
 public class Seller extends User implements ItemList {
 
+    //OVERVIEW: Creates an objcet that is able to store the items that the seller
+    //selects from the database. Requires the seller/vendor to login with 
+    //a id and password. The Seller class is mutable and is created for each session.
+    
+    //Abstraction Function: 
+    //Repersents the selected items during a Sellers session. 
+    //AF(c): c.items = selected items by thy seller.
+    //      c.id = Seller.id 
+    //      c.password = Seller.password 
+    
+    //Rep Invariant: 
+    //
+    // 
+    
     // Instance Variables
     private final int id;
     private final String password;
@@ -51,15 +65,21 @@ public class Seller extends User implements ItemList {
     public ArrayList<Item> getItems() {
         return (ArrayList<Item>) this.items.clone();
     }
-    
+
     @Override
     public void addItem(Item item) {
         items.add(item);
     }
 
     @Override
-    public void removeItem(Item item) {
-        items.remove(item);
+    public boolean removeItem(Item item) {
+        if (item == null){ 
+            return false; 
+        } else { 
+            items.remove(item);
+            return true; 
+        }
+        ////check if the item is null and ceck if the item exists
     }
 
     @Override
