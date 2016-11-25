@@ -54,6 +54,7 @@ public class EcommerceGUI extends javax.swing.JFrame {
         this.buttonLogin = new javax.swing.JButton();
         this.labelLogo = new javax.swing.JLabel();
 
+        // Set up frame properties
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("eCommerce");
         setAutoRequestFocus(false);
@@ -67,14 +68,10 @@ public class EcommerceGUI extends javax.swing.JFrame {
         setResizable(false);
         setSize(new java.awt.Dimension(600, 600));
 
+        // Set up layout for container of views
         container.setLayout(new java.awt.CardLayout());
 
-        viewHome.setPreferredSize(new java.awt.Dimension(600, 600));
-
-        panelHeader.setBackground(java.awt.SystemColor.textHighlight);
-        panelHeader.setForeground(java.awt.SystemColor.window);
-        panelHeader.setToolTipText("");
-
+        // Setting up items in panels
         buttonCart.setText("Cart");
         buttonCart.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -94,6 +91,11 @@ public class EcommerceGUI extends javax.swing.JFrame {
         labelLogo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         labelLogo.setText("eCommerce");
 
+        // Set up header of views
+        panelHeader.setBackground(java.awt.SystemColor.textHighlight);
+        panelHeader.setForeground(java.awt.SystemColor.window);
+        panelHeader.setToolTipText("");
+        
         javax.swing.GroupLayout panelHeaderLayout = new javax.swing.GroupLayout(panelHeader);
         panelHeader.setLayout(panelHeaderLayout);
         panelHeaderLayout.setHorizontalGroup(
@@ -118,6 +120,7 @@ public class EcommerceGUI extends javax.swing.JFrame {
                 .addGap(0, 10, Short.MAX_VALUE))
         );
 
+        // Set up body of views
         panelBody.setPreferredSize(new java.awt.Dimension(600, 552));
 
         javax.swing.GroupLayout panelBodyLayout = new javax.swing.GroupLayout(panelBody);
@@ -131,12 +134,14 @@ public class EcommerceGUI extends javax.swing.JFrame {
             .addGap(0, 546, Short.MAX_VALUE)
         );
 
+        // Set up each view
         setupHomeView();
         setupCartView();
         setupLoginView();
         setupItemsView();
         setupAddItemView();
         
+        // Set up container of views
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -149,34 +154,32 @@ public class EcommerceGUI extends javax.swing.JFrame {
                 .addComponent(container, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(8, 8, 8))
         );
-
-        pack();
     }
 
     /* Set up each view in its own separate method */
     //<editor-fold defaultstate="collapsed" desc=" Setting up gui views ">
     private void setupHomeView() {
-        javax.swing.GroupLayout viewHomeLayout = new javax.swing.GroupLayout(this.viewHome);
-        this.viewHome.setLayout(viewHomeLayout);
+        javax.swing.GroupLayout viewHomeLayout = new javax.swing.GroupLayout(viewHome);
+        viewHome.setLayout(viewHomeLayout);
         viewHomeLayout.setHorizontalGroup(
             viewHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(this.panelHeader, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(this.panelBody, javax.swing.GroupLayout.DEFAULT_SIZE, 620, Short.MAX_VALUE)
+            .addComponent(panelHeader, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(panelBody, javax.swing.GroupLayout.DEFAULT_SIZE, 620, Short.MAX_VALUE)
         );
         viewHomeLayout.setVerticalGroup(
             viewHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(viewHomeLayout.createSequentialGroup()
-                .addComponent(this.panelHeader, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(panelHeader, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(7, 7, 7)
-                .addComponent(this.panelBody, javax.swing.GroupLayout.DEFAULT_SIZE, 546, Short.MAX_VALUE))
+                .addComponent(panelBody, javax.swing.GroupLayout.DEFAULT_SIZE, 546, Short.MAX_VALUE))
         );
 
-        this.container.add(viewHome, EcommerceGUI.VIEW_HOME);
+        container.add(viewHome, EcommerceGUI.VIEW_HOME);
     }
     
     private void setupCartView() {
-        javax.swing.GroupLayout viewCartLayout = new javax.swing.GroupLayout(this.viewCart);
-        this.viewCart.setLayout(viewCartLayout);
+        javax.swing.GroupLayout viewCartLayout = new javax.swing.GroupLayout(viewCart);
+        viewCart.setLayout(viewCartLayout);
         viewCartLayout.setHorizontalGroup(
             viewCartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 620, Short.MAX_VALUE)
@@ -186,12 +189,12 @@ public class EcommerceGUI extends javax.swing.JFrame {
             .addGap(0, 600, Short.MAX_VALUE)
         );
 
-        this.container.add(this.viewCart, EcommerceGUI.VIEW_CART);
+        container.add(this.viewCart, EcommerceGUI.VIEW_CART);
     }
     
     private void setupLoginView() {
-        javax.swing.GroupLayout viewLoginLayout = new javax.swing.GroupLayout(this.viewLogin);
-        this.viewLogin.setLayout(viewLoginLayout);
+        javax.swing.GroupLayout viewLoginLayout = new javax.swing.GroupLayout(viewLogin);
+        viewLogin.setLayout(viewLoginLayout);
         viewLoginLayout.setHorizontalGroup(
             viewLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 620, Short.MAX_VALUE)
@@ -201,13 +204,13 @@ public class EcommerceGUI extends javax.swing.JFrame {
             .addGap(0, 600, Short.MAX_VALUE)
         );
 
-        this.container.add(viewLogin, EcommerceGUI.VIEW_LOGIN);
+        container.add(viewLogin, EcommerceGUI.VIEW_LOGIN);
         
     }
     
     private void setupItemsView() {
-        javax.swing.GroupLayout viewItemsLayout = new javax.swing.GroupLayout(this.viewItems);
-        this.viewItems.setLayout(viewItemsLayout);
+        javax.swing.GroupLayout viewItemsLayout = new javax.swing.GroupLayout(viewItems);
+        viewItems.setLayout(viewItemsLayout);
         viewItemsLayout.setHorizontalGroup(
             viewItemsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 620, Short.MAX_VALUE)
@@ -217,12 +220,12 @@ public class EcommerceGUI extends javax.swing.JFrame {
             .addGap(0, 600, Short.MAX_VALUE)
         );
 
-        this.container.add(viewItems, EcommerceGUI.VIEW_ITEMS);
+        container.add(viewItems, EcommerceGUI.VIEW_ITEMS);
     }
     
     private void setupAddItemView() {
-        javax.swing.GroupLayout viewAddItemLayout = new javax.swing.GroupLayout(this.viewAddItem);
-        this.viewAddItem.setLayout(viewAddItemLayout);
+        javax.swing.GroupLayout viewAddItemLayout = new javax.swing.GroupLayout(viewAddItem);
+        viewAddItem.setLayout(viewAddItemLayout);
         viewAddItemLayout.setHorizontalGroup(
             viewAddItemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 620, Short.MAX_VALUE)
@@ -232,22 +235,21 @@ public class EcommerceGUI extends javax.swing.JFrame {
             .addGap(0, 600, Short.MAX_VALUE)
         );
 
-        this.container.add(viewAddItem, EcommerceGUI.VIEW_ADD_ITEM);
+        container.add(viewAddItem, EcommerceGUI.VIEW_ADD_ITEM);
     }
     //</editor-fold>
     
     /* Button events (example: "MouseClicked" */
     //<editor-fold defaultstate="collapsed" desc=" Button events ">
     private void buttonLoginMouseClicked(java.awt.event.MouseEvent evt) {
-        CardLayout cl = (CardLayout) this.container.getLayout();
-        cl.show(this.container, EcommerceGUI.VIEW_LOGIN);
+        CardLayout cl = (CardLayout) container.getLayout();
+        cl.show(container, EcommerceGUI.VIEW_LOGIN);
     }
-    //</editor-fold>
     
     private void buttonCartMouseClicked(java.awt.event.MouseEvent evt) {
-        CardLayout cl = (CardLayout) this.container.getLayout();
-        cl.show(this.container, EcommerceGUI.VIEW_CART);
-    }
+        CardLayout cl = (CardLayout) container.getLayout();
+        cl.show(container, EcommerceGUI.VIEW_CART);
+    }//</editor-fold>
 
     public void centreWindow() {
         Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
