@@ -61,11 +61,17 @@ public class ItemCart implements ItemList {
     }
 
     @Override
-    public void removeItem(Item item) {
+    public boolean removeItem(Item item) {
         //MODIFIES: items
         //EFFECTS: overrides the abstract method removeItem. removes the selected 
         //item from the arraylist. 
-        items.remove(item);
+       if(item == null){ 
+           return false; 
+       }else{ 
+          items.remove(item);
+          return true; 
+       }
+         
     }
     
     public boolean repOk(){ 
