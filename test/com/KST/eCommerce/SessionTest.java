@@ -24,16 +24,6 @@ public class SessionTest {
     }
 
     /**
-     * Test of Session method, of class Session.
-     */
-    @Test
-    public void testSession() {
-        System.out.println("Session");
-        Session instance = new Session();
-        instance.Session();
-    }
-
-    /**
      * Test of login method, of class Session.
      */
     @Test

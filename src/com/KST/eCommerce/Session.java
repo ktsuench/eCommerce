@@ -12,6 +12,7 @@ public class Session {
     // to the store, depending on whether the user is a guest or seller, repsectively.
     
     // AF(c) = {c.session.users | c.users.name = name && c.users.password = password}
+    // c.session.users 
     
     // The rep invariant is:
     // c.users != null &&
@@ -27,7 +28,7 @@ public class Session {
     /**
      * Constructor
      */
-    public void Session() {
+    public Session() {
         // EFFECTS: initializes isLoggedIn to false, user as a null array, cart to new object (default)
         
         isLoggedIn = false;
