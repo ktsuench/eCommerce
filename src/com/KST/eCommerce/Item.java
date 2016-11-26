@@ -92,6 +92,10 @@ public class Item {
         return hash;
     }
     
+    @Override
+    public Item clone() {
+        return new Item(id, title, description, price);
+    }
     
     public boolean repOk(){ 
         //EFFECTS: Returns true if the rep invariant holds for this, 

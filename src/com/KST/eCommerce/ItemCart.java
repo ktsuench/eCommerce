@@ -76,6 +76,17 @@ public class ItemCart implements ItemList {
          
     }
     
+    @Override
+    public ItemCart clone() {
+        ItemCart cart = new ItemCart();
+        
+        for(Item i: items) {
+            cart.addItem((Item) i.clone());
+        }
+        
+        return cart;
+    }
+    
     public boolean repOk(){ 
         //EFFECTS: Returns ture if the rep invariant holds for this,
         //otherwise it returns false.
