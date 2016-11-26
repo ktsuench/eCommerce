@@ -25,6 +25,8 @@ public class EcommerceGUI extends Application {
     public final static String VIEW_STORE = "views/viewHome.fxml";
     public final static String VIEW_CART = "views/viewCart.fxml";
     public final static String VIEW_LOGIN = "views/viewLogin.fxml";
+    public final static String VIEW_ITEMS = "views/viewItems.fxml";
+    public final static String VIEW_ADD_ITEM = "views/viewAddItem.fxml";
     
     public static EcommercePlatform platform;
     
