@@ -38,6 +38,10 @@ public class EcommercePlatform {
         return this.session;
     }
     
+    public PaymentProcessor getPaymentProcessor() {
+        return this.checkout;
+    }
+    
     public void showInterface() {
         EcommerceGUI.showGUI(this);
     }
