@@ -1,6 +1,8 @@
 package com.KST.eCommerce;
 
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -36,6 +38,16 @@ public class EcommercePlatform {
 
     public Session getSession() {
         return this.session;
+    }
+    
+    public boolean login(String name, String password) {
+        try {
+            return this.session.login(this.users, name, password);
+        } catch (Exception ex) {
+            Logger.getLogger(EcommercePlatform.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return false;
     }
     
     public PaymentProcessor getPaymentProcessor() {
