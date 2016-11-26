@@ -133,6 +133,16 @@ public class Session {
     }
 
     /**
+     * Retrieve cart
+     *
+     * @return ItemCart
+     */
+    public ItemCart getCart() {
+        // EFFECTS: returns the item cart
+        return (ItemCart) cart.clone();
+    }
+    
+    /**
      * Add the idem to the store
      *
      * @param item
