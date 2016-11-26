@@ -9,10 +9,11 @@ public class PaymentProcessor {
     /**
      * Prints processing message
      *
+     * @return String
      */
-    public void processPayment() {
-        // EFFECTS: Prints the message to indicate local session is ending
+    public String processPayment() {
+        // EFFECTS: Returns the message to indicate local session is ending
         
-        System.out.println("Payment is being processed");
+        return "Payment recieved.";
     }
 }

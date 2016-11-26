@@ -88,12 +88,15 @@ public class Session {
      * Process the payment, and make a new Cart
      *
      * @param checkout
+     * @return String
      */
-    public void purchase(PaymentProcessor checkout) {
-        // EFFECTS: prints checkout message at the end of session and empties the cart for next user
+    public String purchase(PaymentProcessor checkout) {
+        // EFFECTS: Returns checkout message at the end of session and empties the cart for next user
 
-        checkout.processPayment();
+        String result = checkout.processPayment();
         cart = new ItemCart();
+    
+        return result;
     }
 
     /**
