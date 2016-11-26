@@ -30,7 +30,7 @@ public class ItemCart implements ItemList {
     
     //Instance variables
     private ArrayList<Item> items;
-    private final int numberOfItems;
+    private int numberOfItems;
 
     //Constructor
     public ItemCart() {
@@ -54,22 +54,24 @@ public class ItemCart implements ItemList {
     
     @Override
     public void addItem(Item item) {
-        //MODIFIES: items
+        //MODIFIES: items, numberOfItems
         //EFFECTS: overrides the abstract method addItem. Adds the selected item 
-        //to the arraylist. 
+        //to the arraylist and increments numberOfItems by 1.
         items.add(item);
+        numberOfItems++;
     }
 
     @Override
     public boolean removeItem(Item item) {
-        //MODIFIES: items
+        //MODIFIES: items, numberOfItems
         //EFFECTS: overrides the abstract method removeItem. removes the selected 
-        //item from the arraylist. 
+        //item from the arraylist and decrements numberOfItems by 1.
        if(item == null){ 
            return false; 
        }else{ 
           items.remove(item);
-          return true; 
+          numberOfItems--;
+          return true;
        }
          
     }
