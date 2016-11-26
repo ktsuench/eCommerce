@@ -11,6 +11,7 @@ import static javafx.application.Application.launch;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.Background;
 import javafx.stage.Stage;
 
 /**
@@ -18,6 +19,9 @@ import javafx.stage.Stage;
  * @author Ken
  */
 public class EcommerceGUI extends Application {
+    public final static String BACKGROUND = "#4286f4";
+    public final static String FOREGROUND = "#fff";
+    
     public static EcommercePlatform platform;
     
     @Override
