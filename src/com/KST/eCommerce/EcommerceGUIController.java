@@ -9,6 +9,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -45,11 +47,11 @@ public class EcommerceGUIController implements Initializable {
         Parent root = null;
 
         if (event.getSource() == btnStore) {
-            root = FXMLLoader.load(getClass().getResource("views/viewHome.fxml"));
+            root = FXMLLoader.load(getClass().getResource(EcommerceGUI.VIEW_STORE));
         } else if (event.getSource() == btnCart) {
-            root = FXMLLoader.load(getClass().getResource("views/viewCart.fxml"));
+            root = FXMLLoader.load(getClass().getResource(EcommerceGUI.VIEW_CART));
         } else if (event.getSource() == btnLogin) {
-            root = FXMLLoader.load(getClass().getResource("views/viewLogin.fxml"));
+            root = FXMLLoader.load(getClass().getResource(EcommerceGUI.VIEW_LOGIN));
         }
 
         if (root != null) {
@@ -59,15 +61,21 @@ public class EcommerceGUIController implements Initializable {
     }
 
     private void loadItems() {
-        EcommerceGUIController reference = this;
         AnchorPane itemContainer;
         Label itemTitle;
         Label itemDescription;
         Label itemPrice;
-        Button addToCart;
+        Button cartAction;
 
         Session session = EcommerceGUI.platform.getSession();
-        ArrayList<Item> items = EcommerceGUI.platform.listItems();
+
+        ArrayList<Item> items = null;
+
+        if (btnCart != null) {
+            items = EcommerceGUI.platform.listItems();
+        } else if (btnStore != null) {
+            items = EcommerceGUI.platform.getSession().getCart().getItems();
+        }
 
         double x = 20;
         double y = 20;
@@ -102,25 +110,43 @@ public class EcommerceGUIController implements Initializable {
             itemPrice.setLayoutX(420);
             itemPrice.setLayoutY(10);
 
-            addToCart = new Button("Add To Cart");
-            addToCart.setMinWidth(80);
-            addToCart.setMinHeight(40);
-            addToCart.setLayoutX(430);
-            addToCart.setLayoutY(70);
-            addToCart.setOnMouseClicked((EventHandler) new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent t) {
-                    session.addToCart(i);
-                    if (btnCart != null) {
+            cartAction = new Button();
+            if (btnCart != null) {
+                cartAction.setText("Add To Cart");
+                cartAction.setOnMouseClicked((EventHandler) new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent t) {
+                        session.addToCart(i);
                         btnCart.setText("Cart: " + session.getCartSize());
                     }
-                }
-            });
+                });
+            } else if (btnStore != null) {
+                cartAction.setText("Remove");
+                cartAction.setOnMouseClicked((EventHandler) new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent t) {
+                        Stage stage = (Stage) ((Node) t.getSource()).getScene().getWindow();
+                        
+                        session.removeFromCart(i);
+                        
+                        try {
+                            stage.setScene(new Scene(FXMLLoader.load(getClass().getResource(EcommerceGUI.VIEW_CART))));
+                            stage.show();
+                        } catch (IOException ex) {
+                            Logger.getLogger(EcommerceGUIController.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }
+                });
+            }
+            cartAction.setMinWidth(80);
+            cartAction.setMinHeight(40);
+            cartAction.setLayoutX(430);
+            cartAction.setLayoutY(70);
 
             itemContainer.getChildren().add(itemTitle);
             itemContainer.getChildren().add(itemDescription);
             itemContainer.getChildren().add(itemPrice);
-            itemContainer.getChildren().add(addToCart);
+            itemContainer.getChildren().add(cartAction);
 
             itemList.getChildren().add(itemContainer);
         }

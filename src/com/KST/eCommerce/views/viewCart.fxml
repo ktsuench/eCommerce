@@ -23,4 +23,20 @@
            </children>
         </HBox>
     </top>
+   <bottom>
+      <AnchorPane minHeight="540.0" minWidth="600.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label layoutX="20.0" layoutY="20.0" minHeight="30.0" text="Cart">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <ScrollPane fx:id="itemScrollContainer" layoutX="20.0" layoutY="70.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #fff;" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="70.0">
+               <content>
+                  <AnchorPane fx:id="itemList" minHeight="450.0" minWidth="560.0" style="-fx-background-color: #fff;" />
+               </content>
+            </ScrollPane>
+         </children>
+      </AnchorPane>
+   </bottom>
 </BorderPane>
