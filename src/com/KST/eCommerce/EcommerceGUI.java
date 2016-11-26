@@ -22,6 +22,10 @@ public class EcommerceGUI extends Application {
     public final static String BACKGROUND = "#4286f4";
     public final static String FOREGROUND = "#fff";
     
+    public final static String VIEW_STORE = "views/viewHome.fxml";
+    public final static String VIEW_CART = "views/viewCart.fxml";
+    public final static String VIEW_LOGIN = "views/viewLogin.fxml";
+    
     public static EcommercePlatform platform;
     
     @Override
