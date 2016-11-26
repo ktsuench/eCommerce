@@ -79,7 +79,7 @@ public class EcommerceGUIController implements Initializable {
         }
         
         lblResult.setVisible(true);
-        ((Node) e.getSource()).setDisable(true);
+        itemList.getChildren().clear();
     }
 
     private void loadItems() {
