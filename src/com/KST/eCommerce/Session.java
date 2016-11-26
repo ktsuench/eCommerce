@@ -8,19 +8,24 @@ import java.util.ArrayList;
 
 public class Session {
 
-    // OVERVIEW: Sessions are mutable. When a user is able to login, they have
-    // the options of adding/removing iteams to their cart or adding/removing items 
-    // to the store, depending on whether the user is a guest or seller, repsectively.
+    /**
+     * OVERVIEW: Sessions are mutable. When a user is able to login, they have
+     * the options of adding/removing items to their cart or adding/removing
+     * items to the store, depending on whether the user is a guest or seller,
+     * respectively.
+     */
     
-    // AF(c) = {c.session.users | c.users.name = name && c.users.password = password}
-    // c.session.users 
+    /* AF(c): */
+    // {c.session.users | c.users.name = name && c.users.password = password}
+    // c.session.users
     
-    // The rep invariant is:
+    /* The rep invariant is: */
     // c.users != null &&
     // for all integers i, j,
     // (0 <= i < j < c.users.size) =>
     // (c.users.[i].name || c.users.[i].password) != (c.users.[j].name || c.users.[j].password)
-    // Instance Variables
+    
+//Instance Variables
     private boolean isLoggedIn;
     private User user;
     private ItemCart cart;
@@ -92,6 +97,16 @@ public class Session {
             return true;
         }
         return false;
+    }
+
+    /**
+     * Retrieves the value of isLoggedIn
+     *
+     * @return boolean
+     */
+    public boolean isLoggedIn() {
+        // EFFECTS: returns isLoggedIn
+        return isLoggedIn;
     }
 
     /**
