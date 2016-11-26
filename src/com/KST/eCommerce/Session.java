@@ -11,8 +11,10 @@ public class Session {
     // OVERVIEW: Sessions are mutable. When a user is able to login, they have
     // the options of adding/removing iteams to their cart or adding/removing items 
     // to the store, depending on whether the user is a guest or seller, repsectively.
+    
     // AF(c) = {c.session.users | c.users.name = name && c.users.password = password}
     // c.session.users 
+    
     // The rep invariant is:
     // c.users != null &&
     // for all integers i, j,
@@ -27,6 +29,7 @@ public class Session {
      * Constructor
      */
     public Session() {
+        // MODIFIES: isLoggedIn, user, cart
         // EFFECTS: initializes isLoggedIn to false, user as a null array, cart to new object (default)
 
         isLoggedIn = false;
@@ -40,9 +43,12 @@ public class Session {
      * @param users
      * @param name
      * @param password
+     * @return boolean
      * @throws java.lang.Exception
      */
     public boolean login(ArrayList<User> users, String name, String password) throws Exception {
+        // REQUIRES: users != null, name != null, password != null
+        // MODIFIES: users, isLoggedIn
         // EFFECTS: throws Exception if there are no users. If their is a user, checks if 
         // the name and password of that user exists in the predefined list. Then sets the 
         // role (guest/seller) as defined in the list to the current user
@@ -72,8 +78,12 @@ public class Session {
 
     /**
      * Logs the user out
+     *
+     * @return boolean
      */
     public boolean logout() {
+        // REQUIRES: user != null
+        // MODIFIES: user, isLoggedIn
         // EFFECTS: logs the user out after they finish their session. Reset variables to default
 
         if (isLoggedIn) {
@@ -91,11 +101,12 @@ public class Session {
      * @return String
      */
     public String purchase(PaymentProcessor checkout) {
+        // MODIFIES: cart
         // EFFECTS: Returns checkout message at the end of session and empties the cart for next user
 
         String result = checkout.processPayment();
         cart = new ItemCart();
-    
+
         return result;
     }
 
@@ -105,6 +116,7 @@ public class Session {
      * @param item
      */
     public void addToCart(Item item) {
+        // REQUIRES: item != null
         // MODIFIES: cart   
         // EFFECTS: adds the specified item to the cart
         //          i.e. cart_post = cart + {item}
@@ -118,7 +130,8 @@ public class Session {
      * @param item
      */
     public void removeFromCart(Item item) {
-        // MODIFIES: cart   
+        // REQUIRES: item != null
+        // MODIFIES: cart
         // EFFECTS: removes the specified item from the cart
         //          i.e. cart_post = cart - {item}
 
@@ -144,13 +157,14 @@ public class Session {
         // EFFECTS: returns the item cart
         return (ItemCart) cart.clone();
     }
-    
+
     /**
      * Add the idem to the store
      *
      * @param item
      */
     public void addItemToStore(Item item) {
+        // REQUIRES: item != null
         // MODIFIES: cart   
         // EFFECTS: adds the specified item to the store
         //          i.e. (Seller)user_post = (Seller)user + {item}
@@ -164,11 +178,23 @@ public class Session {
      * @param item
      */
     public void removeItemFromStore(Item item) {
+        // REQUIRES: user != null
         // MODIFIES: cart   
         // EFFECTS: removes the specified item from the store
         //          i.e. (Seller)user_post = (Seller)user - {item}
 
         ((Seller) user).removeItem(item);
+    }
+
+    /**
+     * Retrieves the items of the seller
+     *
+     * @return ArrayList<Item>
+     */
+    public ArrayList<Item> getItemStore() {
+        // REQUIRES: user != null
+        // EFFECTS: returns the items of the seller
+        return ((Seller) user).getItems();
     }
 
     /**
