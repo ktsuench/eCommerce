@@ -21,6 +21,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 /**
@@ -58,7 +59,6 @@ public class EcommerceGUIController implements Initializable {
     }
 
     private void loadItems() {
-        Scene scene = null;
         AnchorPane itemContainer;
         Label itemTitle;
         Label itemDescription;
@@ -68,16 +68,44 @@ public class EcommerceGUIController implements Initializable {
         Session session = EcommerceGUI.platform.getSession();
         ArrayList<Item> items = EcommerceGUI.platform.listItems();
 
+        double x = 20;
+        double y = 20;
+        
         for (Item i : items) {
             itemContainer = new AnchorPane();
+            itemContainer.setStyle("-fx-background-color:"+EcommerceGUI.BACKGROUND);
+            itemContainer.setMinWidth(520);
+            itemContainer.setMinHeight(120);
+            itemContainer.setLayoutX(x);
+            itemContainer.setLayoutY(y);
+            y += 140;
             
             itemTitle = new Label(i.getTitle());
+            itemTitle.setStyle("-fx-text-fill:"+EcommerceGUI.FOREGROUND+";-fx-padding:10;-fx-font-size:16;-fx-font-weight:bold");
+            itemTitle.setMinWidth(410);
+            itemTitle.setMinHeight(45);
+            itemTitle.setLayoutX(10);
+            itemTitle.setLayoutY(10);
             
             itemDescription = new Label(i.getDescription());
+            itemDescription.setStyle("-fx-text-fill:"+EcommerceGUI.FOREGROUND+";-fx-padding:10;-fx-alignment:TOP-LEFT");
+            itemDescription.setMinWidth(410);
+            itemDescription.setMinHeight(60);
+            itemDescription.setLayoutX(10);
+            itemDescription.setLayoutY(50);
             
-            itemPrice = new Label(String.format("$#.##", i.getPrice()));
+            itemPrice = new Label(String.format("$%.2f", i.getPrice()));
+            itemPrice.setStyle("-fx-text-fill:"+EcommerceGUI.FOREGROUND+";-fx-padding:10;-fx-font-size:16;-fx-font-weight:bold;-fx-alignment:CENTER-RIGHT");
+            itemPrice.setMinWidth(90);
+            itemPrice.setMinHeight(45);
+            itemPrice.setLayoutX(420);
+            itemPrice.setLayoutY(10);
             
-            addToCart = new Button();
+            addToCart = new Button("Add To Cart");
+            addToCart.setMinWidth(80);
+            addToCart.setMinHeight(40);
+            addToCart.setLayoutX(430);
+            addToCart.setLayoutY(70);
             addToCart.setOnMouseClicked((EventHandler) new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent t) {
@@ -93,6 +121,13 @@ public class EcommerceGUIController implements Initializable {
             this.itemList.getChildren().add(itemContainer);
         }
 
+        Pane spacer = new Pane();
+        spacer.setMinHeight(20);
+        spacer.setMinWidth(450);
+        spacer.setLayoutX(0);
+        spacer.setLayoutY(y - 20);
+                
+        this.itemList.getChildren().add(spacer);
     }
 
     @Override
