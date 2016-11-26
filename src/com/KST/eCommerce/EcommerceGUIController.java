@@ -109,7 +109,7 @@ public class EcommerceGUIController implements Initializable {
             addToCart.setOnMouseClicked((EventHandler) new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent t) {
-                    session.addItemToStore(i);
+                    session.addToCart(i);
                 }
             });
 
