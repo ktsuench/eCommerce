@@ -12,6 +12,7 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -39,6 +40,10 @@ public class EcommerceGUIController implements Initializable {
     @FXML
     private Button btnLogin;
     @FXML
+    private Button btnPurchase;
+    @FXML
+    private Label lblResult;
+    @FXML
     private AnchorPane itemList;
 
     @FXML
@@ -60,6 +65,23 @@ public class EcommerceGUIController implements Initializable {
         }
     }
 
+    @FXML
+    private void processPurchase(Event e) {
+        EcommercePlatform platform = EcommerceGUI.platform;
+        Session session = platform.getSession();
+
+        if (session.getCart().getSizeOfCart() > 0) {
+            lblResult.setStyle("-fx-text-fill:#00a405");
+            lblResult.setText(session.purchase(platform.getPaymentProcessor()));
+        } else {
+            lblResult.setStyle("-fx-text-fill:#f10f0f");
+            lblResult.setText("Nothing to purchase.");
+        }
+        
+        lblResult.setVisible(true);
+        ((Node) e.getSource()).setDisable(true);
+    }
+
     private void loadItems() {
         AnchorPane itemContainer;
         Label itemTitle;
@@ -68,7 +90,6 @@ public class EcommerceGUIController implements Initializable {
         Button cartAction;
 
         Session session = EcommerceGUI.platform.getSession();
-
         ArrayList<Item> items = null;
 
         if (btnCart != null) {
@@ -126,9 +147,9 @@ public class EcommerceGUIController implements Initializable {
                     @Override
                     public void handle(MouseEvent t) {
                         Stage stage = (Stage) ((Node) t.getSource()).getScene().getWindow();
-                        
+
                         session.removeFromCart(i);
-                        
+
                         try {
                             stage.setScene(new Scene(FXMLLoader.load(getClass().getResource(EcommerceGUI.VIEW_CART))));
                             stage.show();

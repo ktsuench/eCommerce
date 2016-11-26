@@ -36,6 +36,12 @@
                   <AnchorPane fx:id="itemList" minHeight="450.0" minWidth="560.0" style="-fx-background-color: #fff;" />
                </content>
             </ScrollPane>
+            <Button fx:id="btnPurcharse" layoutX="495.0" layoutY="13.0" minHeight="45.0" minWidth="75.0" mnemonicParsing="false" onMouseClicked="#processPurchase" text="Purchase Items" />
+            <Label fx:id="lblResult" layoutX="150.0" layoutY="20.0" minHeight="30.0" minWidth="300.0" text="Label" textFill="#f10f0f" visible="false">
+               <font>
+                  <Font name="System Bold Italic" size="16.0" />
+               </font>
+            </Label>
          </children>
       </AnchorPane>
    </bottom>
