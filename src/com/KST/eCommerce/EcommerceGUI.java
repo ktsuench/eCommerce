@@ -18,7 +18,8 @@ import javafx.stage.Stage;
  * @author Ken
  */
 public class EcommerceGUI extends Application {
-
+    public static EcommercePlatform platform;
+    
     @Override
     public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("views/viewHome.fxml"));
@@ -28,7 +29,9 @@ public class EcommerceGUI extends Application {
         stage.show();
     }
 
-    public static void showGUI(ArrayList<Item> items) {
+    public static void showGUI(EcommercePlatform platform) {
+        EcommerceGUI.platform = platform;
+        
         launch();
     }
 }
