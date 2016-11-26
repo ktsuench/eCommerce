@@ -14,15 +14,17 @@ public class Seller extends User implements ItemList {
     //a id and password. The Seller class is mutable and is created for each session.
     
     //Abstraction Function: 
-    //Repersents the selected items during a Sellers session. 
-    //AF(c): c.items = selected items by thy seller.
-    //      c.id = Seller.id 
-    //      c.password = Seller.password 
+    //Represents the selected items during a Sellers session. 
+    //AF(c) = Seller a such that 
+    //          a.items = c.items
+    //          a.id = c.id
+    //          a.password = c.password
     
     //Rep Invariant: 
-    // c.items!= null
-    // c.id >= 0 
-  
+    //      c.items!= null
+    //      c.id >= 0 
+    //      c.password instanceof String
+    
     
     // Instance Variables
     private final int id;
@@ -59,21 +61,29 @@ public class Seller extends User implements ItemList {
      * @return boolean
      */
     public boolean validPassword(String password) {
+        //EFFECTS: Returns ture if the password equals this password.
         return this.password.equals(password);
     }
 
     @Override
     public ArrayList<Item> getItems() {
+         //EFFECTS: Returns clone of items for this.
         return (ArrayList<Item>) this.items.clone();
     }
 
     @Override
     public void addItem(Item item) {
+        //MODIFIES: items
+        //EFFETS: Overrides the abstract method addItem. Adds the selected item
+        //to the arraylist. 
         items.add(item);
     }
 
     @Override
     public boolean removeItem(Item item) {
+        //MODIFIES: items
+        //EFFECTS: Overrides the abstract method removeItem. removes the selected 
+        //item from the arraylist.
         if (item == null){ 
             return false; 
         } else { 
@@ -112,21 +122,15 @@ public class Seller extends User implements ItemList {
     }
     
     public boolean repOk(){ 
-       if(id < 0 || items == null ){ 
-            return false;
-        } else { 
-            return true; 
-        } 
+        //EFFECTS: Returns ture if the rep invariant holds for this,
+        //otherwise it returns false.
+        return !(id < 0 || items == null); 
     }
-    // we should look this over
+   
      @Override
     public String toString() {
-        
-        if (repOk() == true) { 
-            return "Valid Rep Invariant"; 
-        } else { 
-            return "Invalid Rep Invariant"; 
-        }
+       //EFFECTS: Returns the string representation of the abstraction. 
+       return "id " + getId() + " items " + getItems(); 
     }
     
     

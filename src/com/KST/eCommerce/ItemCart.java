@@ -19,13 +19,14 @@ public class ItemCart implements ItemList {
     //The ItemCart is mutable and is created for each session.  
     
     //Abstraction Function: 
-    //Repersents the selected items during a users session.
-    //AF(c): c.items = the items as selected by the user. Of type item.
-    //       c.numberOfItems = integer for the number of selected items.
+    //Represents the selected items during a users session.
+    //AF(c) = ItemCart a such that
+    //          a.items = c.items
+    //          a.numberOfItems = c.numberOfItems
     
     //Rep Invariant: 
-    //c.items != null
-    //c. numberOfItems >= 0
+    //      c.items != null && c.items is instanceof item. 
+    //      c. numberOfItems >= 0
  
     
     //Instance variables
@@ -36,7 +37,6 @@ public class ItemCart implements ItemList {
     public ItemCart() {
         //EFFECTS: initinalizes the number of items to 0,
         //         also initinalizes items as a new ArrayList.  
-        
         this.numberOfItems = 0;
         this.items = new ArrayList();
     }
@@ -49,6 +49,7 @@ public class ItemCart implements ItemList {
 
     @Override
     public ArrayList<Item> getItems() {
+        //EFFECTS: Returns clone of items for this.
         return (ArrayList<Item>) this.items.clone();
     }
     
@@ -95,12 +96,9 @@ public class ItemCart implements ItemList {
     
     @Override
     public String toString() {
-        
-        if (repOk() == true) { 
-            return "Valid Rep Invariant"; 
-        } else { 
-            return "Invalid Rep Invariant"; 
-        }
+      //EFFECTS: Returns the string representation of the abstraction. 
+      return "Number of Items " + getSizeOfCart()+ "items " + getItems();  
+      
     }
      
   

@@ -10,13 +10,27 @@ import java.util.ArrayList;
  */
 public class Database {
 
+    //OVERVIEW: Database is mutable. Reads file to obtain information about the
+    //users and items. 
+    
+    //Abstraction Function: 
+    //Represents the stored information for the users and items.
+    //AF(c) = Database a such that 
+    //          a.dbFile = c.dbFile
+    
+    //Rep Invariant: 
+    
     private File dbFile;
 
+    //Constructor
     public Database(String filename) {
         dbFile = new File(filename);
     }
-
+    
+    //Methods
     public ArrayList<User> readUsers() {
+        //MODIFIES:
+        //EFFECTS: 
         ArrayList<User> users = new ArrayList<>();
         User user;
         Item item;
@@ -42,10 +56,12 @@ public class Database {
     }
 
     public void writeUsers(ArrayList<User> users) {
+        //EFFECTS:
 
     }
     
     public void closeDb() {
+        //EFFECTS:
         this.dbFile = null;
     }
 }
