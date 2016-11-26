@@ -44,11 +44,11 @@ public class EcommerceGUIController implements Initializable {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Parent root = null;
 
-        if (event.getSource() == this.btnStore) {
+        if (event.getSource() == btnStore) {
             root = FXMLLoader.load(getClass().getResource("views/viewHome.fxml"));
-        } else if (event.getSource() == this.btnCart) {
+        } else if (event.getSource() == btnCart) {
             root = FXMLLoader.load(getClass().getResource("views/viewCart.fxml"));
-        } else if (event.getSource() == this.btnLogin) {
+        } else if (event.getSource() == btnLogin) {
             root = FXMLLoader.load(getClass().getResource("views/viewLogin.fxml"));
         }
 
@@ -59,6 +59,7 @@ public class EcommerceGUIController implements Initializable {
     }
 
     private void loadItems() {
+        EcommerceGUIController reference = this;
         AnchorPane itemContainer;
         Label itemTitle;
         Label itemDescription;
@@ -70,37 +71,37 @@ public class EcommerceGUIController implements Initializable {
 
         double x = 20;
         double y = 20;
-        
+
         for (Item i : items) {
             itemContainer = new AnchorPane();
-            itemContainer.setStyle("-fx-background-color:"+EcommerceGUI.BACKGROUND);
+            itemContainer.setStyle("-fx-background-color:" + EcommerceGUI.BACKGROUND);
             itemContainer.setMinWidth(520);
             itemContainer.setMinHeight(120);
             itemContainer.setLayoutX(x);
             itemContainer.setLayoutY(y);
             y += 140;
-            
+
             itemTitle = new Label(i.getTitle());
-            itemTitle.setStyle("-fx-text-fill:"+EcommerceGUI.FOREGROUND+";-fx-padding:10;-fx-font-size:16;-fx-font-weight:bold");
+            itemTitle.setStyle("-fx-text-fill:" + EcommerceGUI.FOREGROUND + ";-fx-padding:10;-fx-font-size:16;-fx-font-weight:bold");
             itemTitle.setMinWidth(410);
             itemTitle.setMinHeight(45);
             itemTitle.setLayoutX(10);
             itemTitle.setLayoutY(10);
-            
+
             itemDescription = new Label(i.getDescription());
-            itemDescription.setStyle("-fx-text-fill:"+EcommerceGUI.FOREGROUND+";-fx-padding:10;-fx-alignment:TOP-LEFT");
+            itemDescription.setStyle("-fx-text-fill:" + EcommerceGUI.FOREGROUND + ";-fx-padding:10;-fx-alignment:TOP-LEFT");
             itemDescription.setMinWidth(410);
             itemDescription.setMinHeight(60);
             itemDescription.setLayoutX(10);
             itemDescription.setLayoutY(50);
-            
+
             itemPrice = new Label(String.format("$%.2f", i.getPrice()));
-            itemPrice.setStyle("-fx-text-fill:"+EcommerceGUI.FOREGROUND+";-fx-padding:10;-fx-font-size:16;-fx-font-weight:bold;-fx-alignment:CENTER-RIGHT");
+            itemPrice.setStyle("-fx-text-fill:" + EcommerceGUI.FOREGROUND + ";-fx-padding:10;-fx-font-size:16;-fx-font-weight:bold;-fx-alignment:CENTER-RIGHT");
             itemPrice.setMinWidth(90);
             itemPrice.setMinHeight(45);
             itemPrice.setLayoutX(420);
             itemPrice.setLayoutY(10);
-            
+
             addToCart = new Button("Add To Cart");
             addToCart.setMinWidth(80);
             addToCart.setMinHeight(40);
@@ -110,6 +111,9 @@ public class EcommerceGUIController implements Initializable {
                 @Override
                 public void handle(MouseEvent t) {
                     session.addToCart(i);
+                    if (btnCart != null) {
+                        btnCart.setText("Cart: " + session.getCartSize());
+                    }
                 }
             });
 
@@ -118,7 +122,7 @@ public class EcommerceGUIController implements Initializable {
             itemContainer.getChildren().add(itemPrice);
             itemContainer.getChildren().add(addToCart);
 
-            this.itemList.getChildren().add(itemContainer);
+            itemList.getChildren().add(itemContainer);
         }
 
         Pane spacer = new Pane();
@@ -126,12 +130,17 @@ public class EcommerceGUIController implements Initializable {
         spacer.setMinWidth(450);
         spacer.setLayoutX(0);
         spacer.setLayoutY(y - 20);
-                
-        this.itemList.getChildren().add(spacer);
+
+        itemList.getChildren().add(spacer);
     }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        loadItems();
+        if (btnCart != null) {
+            btnCart.setText("Cart: " + EcommerceGUI.platform.getSession().getCartSize());
+        }
+        if (itemList != null) {
+            loadItems();
+        }
     }
 }
