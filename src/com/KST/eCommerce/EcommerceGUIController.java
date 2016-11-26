@@ -31,7 +31,7 @@ import javafx.stage.Stage;
 
 /**
  *
- * @author Ken
+ * @author Kent Tsuenchy
  */
 public class EcommerceGUIController implements Initializable {
 
@@ -42,7 +42,9 @@ public class EcommerceGUIController implements Initializable {
     @FXML
     private Button btnLogin;
     @FXML
-    private Button btnPurchase;
+    private Button btnItems;
+    @FXML
+    private Button btnLogout;
     @FXML
     private Label lblResult;
     @FXML
@@ -83,23 +85,23 @@ public class EcommerceGUIController implements Initializable {
             lblResult.setStyle("-fx-text-fill:#f10f0f");
             lblResult.setText("Nothing to purchase.");
         }
-        
+
         lblResult.setVisible(true);
         itemList.getChildren().clear();
     }
 
     @FXML
     private void login(Event e) {
+        EcommercePlatform platform = EcommerceGUI.platform;
         String username = txtUsername.getText();
         String password = txtPassword.getText();
-        EcommercePlatform platform = EcommerceGUI.platform;
-        
-        if(platform.login(username, password)) {
+
+        if (platform.login(username, password)) {
             lblResult.setStyle("-fx-text-fill:#00a405");
             lblResult.setText("Logging in");
-            
+
             Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
-            
+
             try {
                 stage.setScene(new Scene(FXMLLoader.load(getClass().getResource(EcommerceGUI.VIEW_ITEMS))));
                 stage.show();
@@ -110,10 +112,26 @@ public class EcommerceGUIController implements Initializable {
             lblResult.setStyle("-fx-text-fill:#f10f0f");
             lblResult.setText("Wrong username/password.");
         }
-        
+
         lblResult.setVisible(true);
     }
-    
+
+    @FXML
+    private void logout(Event e) {
+        Session session = EcommerceGUI.platform.getSession();
+
+        if (session.logout()) {
+            Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
+            
+            try {
+                stage.setScene(new Scene(FXMLLoader.load(getClass().getResource(EcommerceGUI.VIEW_STORE))));
+                stage.show();
+            } catch (IOException ex) {
+                Logger.getLogger(EcommerceGUIController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+
     private void loadItems() {
         AnchorPane itemContainer;
         Label itemTitle;
@@ -128,6 +146,8 @@ public class EcommerceGUIController implements Initializable {
             items = EcommerceGUI.platform.listItems();
         } else if (btnStore != null) {
             items = EcommerceGUI.platform.getSession().getCart().getItems();
+        } else if (btnLogout != null) {
+            items = EcommerceGUI.platform.getSession().getItemStore();
         }
 
         double x = 20;
@@ -173,17 +193,21 @@ public class EcommerceGUIController implements Initializable {
                         btnCart.setText("Cart: " + session.getCartSize());
                     }
                 });
-            } else if (btnStore != null) {
+            } else if (btnStore != null || btnLogout != null) {
                 cartAction.setText("Remove");
                 cartAction.setOnMouseClicked((EventHandler) new EventHandler<MouseEvent>() {
                     @Override
                     public void handle(MouseEvent t) {
                         Stage stage = (Stage) ((Node) t.getSource()).getScene().getWindow();
 
-                        session.removeFromCart(i);
-
                         try {
-                            stage.setScene(new Scene(FXMLLoader.load(getClass().getResource(EcommerceGUI.VIEW_CART))));
+                            if (btnStore != null) {
+                                session.removeFromCart(i);
+                                stage.setScene(new Scene(FXMLLoader.load(getClass().getResource(EcommerceGUI.VIEW_CART))));
+                            } else {
+                                session.removeItemFromStore(i);
+                                stage.setScene(new Scene(FXMLLoader.load(getClass().getResource(EcommerceGUI.VIEW_ITEMS))));
+                            }
                             stage.show();
                         } catch (IOException ex) {
                             Logger.getLogger(EcommerceGUIController.class.getName()).log(Level.SEVERE, null, ex);
