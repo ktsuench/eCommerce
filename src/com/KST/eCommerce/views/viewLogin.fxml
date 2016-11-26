@@ -34,11 +34,11 @@
             <PasswordField fx:id="txtPassword" layoutX="252.0" layoutY="224.0" />
             <TextField fx:id="txtUsername" layoutX="252.0" layoutY="176.0" />
             <Button layoutX="327.0" layoutY="270.0" minHeight="40.0" minWidth="75.0" mnemonicParsing="false" onMouseClicked="#login" text="Login" />
-            <Label layoutX="166.0" layoutY="176.0" text="Username">
+            <Label alignment="CENTER_RIGHT" layoutX="170.0" layoutY="176.0" minWidth="75.0" text="Username">
                <font>
                   <Font size="16.0" />
                </font></Label>
-            <Label layoutX="169.0" layoutY="224.0" text="Password">
+            <Label alignment="CENTER_RIGHT" layoutX="170.0" layoutY="224.0" minWidth="75.0" text="Password">
                <font>
                   <Font size="16.0" />
                </font></Label>
