@@ -18,16 +18,17 @@ public class Item {
     //Abstraction Function: 
     //Repersents individual the items for sale, where each item must have certian 
     //information.
-    //AF(c): c.id = unique integer value for item.
-    //      c.title = a text name or title of item. 
-    //      c.description = a text description of the item. 
-    //      c.price = Price of the item (repersented in dollars, eg. $5.00)     
+    //AF(c) = Item a such that
+    //          a.id = c.id
+    //          a.title = c.title
+    //          a.description = c.description
+    //          a.price = c.price     
     
     //Rep Invariant: 
-    //c.title must be the valid title for the item.
-    //c.description must be a valid description for the item.
-    //c.id >= 0
-    //c.price >= 0.00
+    //      c.title instanceof String
+    //      c.description instanceof String 
+    //      c.id >= 0
+    //      c.price >= 0.00
     
     //Instance Variables
     private final int id;
@@ -101,6 +102,8 @@ public class Item {
         } else { 
             return true; 
         }  
+        
+        
     } 
     
     @Override
