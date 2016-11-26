@@ -44,6 +44,8 @@ public class EcommerceGUIController implements Initializable {
     @FXML
     private Button btnItems;
     @FXML
+    private Button btnAddItem;
+    @FXML
     private Button btnLogout;
     @FXML
     private Label lblResult;
@@ -65,6 +67,10 @@ public class EcommerceGUIController implements Initializable {
             root = FXMLLoader.load(getClass().getResource(EcommerceGUI.VIEW_CART));
         } else if (event.getSource() == btnLogin) {
             root = FXMLLoader.load(getClass().getResource(EcommerceGUI.VIEW_LOGIN));
+        } else if (event.getSource() == btnItems) {
+            root = FXMLLoader.load(getClass().getResource(EcommerceGUI.VIEW_ITEMS));
+        } else if (event.getSource() == btnAddItem) {
+            root = FXMLLoader.load(getClass().getResource(EcommerceGUI.VIEW_ADD_ITEM));
         }
 
         if (root != null) {
