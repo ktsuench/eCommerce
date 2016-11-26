@@ -8,14 +8,14 @@ import java.util.ArrayList;
  */
 public class EcommercePlatform {
 
-    private Session curSession;
-    private PaymentProcessor checkout;
-    private ArrayList<User> users;
+    private final Session session;
+    private final PaymentProcessor checkout;
+    private final ArrayList<User> users;
 
     public EcommercePlatform() {
         Database db = new Database("users.data");
 
-        this.curSession = new Session();
+        this.session = new Session();
         this.checkout = new PaymentProcessor();
         this.users = db.readUsers();
 
@@ -34,10 +34,12 @@ public class EcommercePlatform {
         return (ArrayList<Item>) items.clone();
     }
 
+    public Session getSession() {
+        return this.session;
+    }
+    
     public void showInterface() {
-        EcommerceGUI guiInterface = new EcommerceGUI();
-
-        guiInterface.showGUI(this.listItems());
+        EcommerceGUI.showGUI(this);
     }
 
     public static void main(String[] args) {
