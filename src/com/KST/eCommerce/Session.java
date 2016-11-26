@@ -100,16 +100,6 @@ public class Session {
     }
 
     /**
-     * Retrieves the value of isLoggedIn
-     *
-     * @return boolean
-     */
-    public boolean isLoggedIn() {
-        // EFFECTS: returns isLoggedIn
-        return isLoggedIn;
-    }
-
-    /**
      * Process the payment, and make a new Cart
      *
      * @param checkout
