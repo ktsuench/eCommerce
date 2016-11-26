@@ -22,6 +22,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
@@ -43,6 +45,10 @@ public class EcommerceGUIController implements Initializable {
     private Button btnPurchase;
     @FXML
     private Label lblResult;
+    @FXML
+    private TextField txtUsername;
+    @FXML
+    private PasswordField txtPassword;
     @FXML
     private AnchorPane itemList;
 
@@ -66,7 +72,7 @@ public class EcommerceGUIController implements Initializable {
     }
 
     @FXML
-    private void processPurchase(Event e) {
+    private void processPurchase() {
         EcommercePlatform platform = EcommerceGUI.platform;
         Session session = platform.getSession();
 
@@ -82,6 +88,32 @@ public class EcommerceGUIController implements Initializable {
         itemList.getChildren().clear();
     }
 
+    @FXML
+    private void login(Event e) {
+        String username = txtUsername.getText();
+        String password = txtPassword.getText();
+        EcommercePlatform platform = EcommerceGUI.platform;
+        
+        if(platform.login(username, password)) {
+            lblResult.setStyle("-fx-text-fill:#00a405");
+            lblResult.setText("Logging in");
+            
+            Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
+            
+            try {
+                stage.setScene(new Scene(FXMLLoader.load(getClass().getResource(EcommerceGUI.VIEW_ITEMS))));
+                stage.show();
+            } catch (IOException ex) {
+                Logger.getLogger(EcommerceGUIController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            lblResult.setStyle("-fx-text-fill:#f10f0f");
+            lblResult.setText("Wrong username/password.");
+        }
+        
+        lblResult.setVisible(true);
+    }
+    
     private void loadItems() {
         AnchorPane itemContainer;
         Label itemTitle;
