@@ -16,7 +16,7 @@ public class Item {
     //parameters for the title, id ect. 
     
     //Abstraction Function: 
-    //Repersents individual the items for sale, where each item must have certian 
+    //Represents individual the items for sale, where each item must have certian 
     //information.
     //AF(c) = Item a such that
     //          a.id = c.id
@@ -108,11 +108,7 @@ public class Item {
     
     @Override
     public String toString() {
-        
-        if (repOk() == true) { 
-            return "Valid Rep Invariant"; 
-        } else { 
-            return "Invalid Rep Invariant"; 
-        }
+        //EFFECTS: Returns the string representation of the abstraction. 
+        return "id " + getId() + "title "+ getTitle() + "description "+ getDescription() + "price "+ getPrice(); 
     }
 }

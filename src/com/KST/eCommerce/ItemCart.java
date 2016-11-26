@@ -19,7 +19,7 @@ public class ItemCart implements ItemList {
     //The ItemCart is mutable and is created for each session.  
     
     //Abstraction Function: 
-    //Repersents the selected items during a users session.
+    //Represents the selected items during a users session.
     //AF(c) = ItemCart a such that
     //          a.items = c.items
     //          a.numberOfItems = c.numberOfItems
@@ -85,12 +85,9 @@ public class ItemCart implements ItemList {
     
     @Override
     public String toString() {
-        
-        if (repOk() == true) { 
-            return "Valid Rep Invariant"; 
-        } else { 
-            return "Invalid Rep Invariant"; 
-        }
+      //EFFECTS: Returns the string representation of the abstraction. 
+      return "Number of Items " + getSizeOfCart()+ "items " + getItems();  
+      
     }
      
   
