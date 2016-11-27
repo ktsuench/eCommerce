@@ -194,8 +194,7 @@ public class Session {
 
         if (!(user instanceof Seller) && cart != null && item != null) {
             if (cart.containsItem(item)) {
-                cart.removeItem(item);
-                return true;
+                return cart.removeItem(item);
             }
         }
         
@@ -269,8 +268,7 @@ public class Session {
             Seller s = ((Seller) user);
             
             if (s.getItems().contains(item)) {
-                s.removeItem(item);
-                return true;
+                return s.removeItem(item);
             }
         }
         
