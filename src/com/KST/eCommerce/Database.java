@@ -24,7 +24,12 @@
 package com.KST.eCommerce;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.xml.parsers.ParserConfigurationException;
+import org.xml.sax.SAXException;
 
 /**
  *
@@ -53,14 +58,14 @@ public class Database {
     }
     
     //Methods
-    public ArrayList<User> readUsers() {
+    public ArrayList<User> readUsers() {        
         //MODIFIES: users and item
         //EFFECTS: Stores user and item information into arraylists
         ArrayList<User> users = new ArrayList<>();
         User user;
         Item item;
-
-        try {
+            
+        try {    
             XMLReader xml = new XMLReader(dbFile);
 
             do {
@@ -78,11 +83,13 @@ public class Database {
                 
                 users.add(user);
             } while (xml.nextUser());
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
+            
+            return users;
+        } catch (ParserConfigurationException | SAXException | IOException ex) {
+            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-        return users;
+        
+        return null;
     }
 
     public void writeUsers(ArrayList<User> users) {
