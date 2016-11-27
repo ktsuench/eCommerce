@@ -36,7 +36,7 @@ public class Session {
         // EFFECTS: initializes isLoggedIn to false, user as a guest, cart to new object (default)
 
         isLoggedIn = false;
-        user = new Guest("Guest");
+        user = new Guest();
         cart = new ItemCart();
     }
 
@@ -61,8 +61,10 @@ public class Session {
         // password of that user exists in the predefined list. Then sets the 
         // role (guest/seller) as defined in the list to the current user
 
+        // NOTE: when changing exception messages
+        //       need to update test case!
         if (users == null) {                                            // if their are no User objects
-            throw new Exception("No users");
+            throw new Exception("No users.");
         }
         
         if (name == null || password == null) {
@@ -102,7 +104,7 @@ public class Session {
         // EFFECTS: logs the user out after they finish their session. Reset variables to default
 
         if (isLoggedIn) {
-            user = new Guest("Guest");
+            user = new Guest();
             isLoggedIn = false;
             cart = new ItemCart();
             return true;
@@ -118,13 +120,13 @@ public class Session {
      * @return String
      */
     public String purchase(PaymentProcessor checkout) {
-        // REQUIRES: checkout != null, user instanceof Guest, size of cart > 0
+        // REQUIRES: user is not a seller, checkout != null, and size of cart > 0
         // MODIFIES: cart
         // EFFECTS: Returns checkout message at the end of session and empties the cart for next user
 
         String result;
         
-        if (user instanceof Guest && checkout != null && cart.getSizeOfCart() > 0) {
+        if (!(user instanceof Seller) && checkout != null && cart.getSizeOfCart() > 0) {
             result = checkout.processPayment();
             cart = new ItemCart();
         } else {
@@ -139,15 +141,18 @@ public class Session {
      *
      * @param item
      */
-    public void addToCart(Item item) {
-        // REQUIRES: item != null, cart != null, and user instanceof Guest
+    public boolean addToCart(Item item) {
+        // REQUIRES: user is not a seller, item != null, and cart != null
         // MODIFIES: cart   
         // EFFECTS: adds the specified item to the cart
         //          i.e. cart_post = cart + {item}
 
-        if (user instanceof Guest && cart != null && item != null) {
+        if (!(user instanceof Seller) && cart != null && item != null) {
             cart.addItem(item);
+            return true;
         }
+        
+        return false;
     }
 
     /**
@@ -157,13 +162,13 @@ public class Session {
      * @return boolean
      */
     public boolean removeFromCart(Item item) {
-        // REQUIRES: user instance of Guest, cart != null, item != null, and
+        // REQUIRES: user is not a seller, cart != null, item != null, and
         //           cart contains item
         // MODIFIES: cart
         // EFFECTS: removes the specified item from the cart
         //          i.e. cart_post = cart - {item}
 
-        if (user instanceof Guest && cart != null && item != null) {
+        if (!(user instanceof Seller) && cart != null && item != null) {
             if (cart.containsItem(item)) {
                 cart.removeItem(item);
                 return true;
@@ -179,10 +184,10 @@ public class Session {
      * @return int
      */
     public int getCartSize() {
-        // REQUIRES: user instance of Guest and cart != null
+        // REQUIRES: user is not a seller and cart != null
         // EFFECTS: returns the size of the cart
         
-        if (user instanceof Guest && cart != null) {
+        if (!(user instanceof Seller) && cart != null) {
             return cart.getSizeOfCart();
         }
         
@@ -195,10 +200,10 @@ public class Session {
      * @return ItemCart
      */
     public ItemCart getCart() {
-        // REQUIRES: user instanceof Guest and cart != null
+        // REQUIRES: user is not a seller and cart != null
         // EFFECTS: returns the item cart
         
-        if (user instanceof Guest && cart != null) {
+        if (!(user instanceof Seller) && cart != null) {
             return (ItemCart) cart.clone();
         }
         
@@ -213,7 +218,6 @@ public class Session {
      */
     public boolean addItemToStore(Item item) {
         // REQUIRES: item != null user instanceof Seller
-        // MODIFIES: cart
         // EFFECTS: adds the specified item to the store
         //          i.e. (Seller)user_post = (Seller)user + {item}
 
