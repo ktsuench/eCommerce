@@ -42,6 +42,10 @@ public class Session {
         cart = new ItemCart();
     }
 
+    public User getUser() {
+        return ((Seller) user);
+    }
+    
     /**
      * Checks if login information is valid and logs user in
      *
