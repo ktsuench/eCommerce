@@ -83,6 +83,16 @@ public class Seller extends User implements ItemList {
     }
 
     /**
+     * Returns user password
+     * 
+     * @return String
+     */
+    public String getPassword() {
+        //EFFECTS: returns password property of this.
+        return this.password;
+    }
+    
+    /**
      * Validates that password is correct.
      *
      * @param password
