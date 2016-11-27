@@ -11,14 +11,11 @@ public class Session {
     // the options of adding/removing iteams to their cart or adding/removing items 
     // to the store, depending on whether the user is a guest or seller, repsectively.
     
-    // AF(c) = {c.session.users | c.users.name = name && c.users.password = password}
-    // c.session.users = user who are currently using the session
+    // Abstraction function is
+    //          c.cart = cart
     
     // The rep invariant is:
-    // c.users != null &&
-    // for all integers i, j,
-    // (0 <= i < j < c.users.size) =>
-    // (c.users.[i].name || c.users.[i].password) == (c.users.[j].name || c.users.[j].password)
+    // c.cart != null
     
     // Instance Variables
     private boolean isLoggedIn;
@@ -42,6 +39,7 @@ public class Session {
      * @param users
      * @param name
      * @param password
+     * @return boolean
      * @throws java.lang.Exception
      */
     public boolean login(ArrayList<User> users, String name, String password) throws Exception {
@@ -74,6 +72,7 @@ public class Session {
 
     /**
      * Logs the user out
+     * @return boolean
      */
     public boolean logout() {
         // EFFECTS: logs the user out after they finish their session. Reset variables to default
@@ -115,6 +114,7 @@ public class Session {
      * Remove an item to the cart
      *
      * @param item
+     * @return boolean
      */
     public boolean removeFromCart(Item item) {
         // MODIFIES: cart   
@@ -128,26 +128,36 @@ public class Session {
      * Add the idem to the store
      *
      * @param item
+     * @return boolean
      */
-    public void addItemToStore(Item item) {
+    public boolean addItemToStore(Item item) {
         // MODIFIES: cart   
         // EFFECTS: adds the specified item to the store
         //          i.e. (Seller)user_post = (Seller)user + {item}
         
-        ((Seller) user).addItem(item);
+        if (isLoggedIn == true) {
+            ((Seller) user).addItem(item);
+            return true;
+        }
+        return false;
     }
 
     /**
      * Remove the idem from the store
      *
      * @param item
+     * @return boolean
      */
-    public void removeItemFromStore(Item item) {
+    public boolean removeItemFromStore(Item item) {
         // MODIFIES: cart   
         // EFFECTS: removes the specified item from the store
         //          i.e. (Seller)user_post = (Seller)user - {item}
         
-        ((Seller) user).removeItem(item);
+        if (isLoggedIn == true) {
+            ((Seller) user).removeItem(item);
+            return true;
+        }
+        return false;
     }
     
     /**
@@ -157,11 +167,7 @@ public class Session {
      */
     public boolean repOK() {
         
-        if (user == null) {
-            return false;
-        }
-                
-        return true;
+        return cart != null;
     }
     
     /**

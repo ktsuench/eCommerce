@@ -24,7 +24,7 @@ public class SessionTest {
     }
 
     /**
-     * Test of login method, of class Session.
+     * Test of login (false) method, of class Session.
      */
     @Test
     public void testLogin() {
@@ -45,7 +45,7 @@ public class SessionTest {
     }
 
     /**
-     * Test of login method, of class Session.
+     * Test of login (true) method, of class Session.
      */
     @Test
     public void testTrueLogin() {
@@ -65,7 +65,7 @@ public class SessionTest {
     }
 
     /**
-     * Test of logout method, of class Session.
+     * Test of logout (false) method, of class Session.
      */
     @Test
     public void testLogout() {
@@ -76,7 +76,7 @@ public class SessionTest {
     }
 
     /**
-     * Test of logout method, of class Session.
+     * Test of logout (false) method, of class Session.
      */
     @Test
     public void testTrueLogout() {
@@ -128,16 +128,26 @@ public class SessionTest {
         System.out.println("addItemToStore");
         Item item = new Item(2, "def", "def", 35.7);
         Session instance = new Session();
-        instance.addItemToStore(item);
+        
+        ArrayList<User> users = new ArrayList();
+        users.add(new Seller("name", 1, "pass"));
+        String name = "name";
+        String password = "pass";
+   
+        try {
+          boolean login = instance.login(users, name, password);            
+          assertTrue(instance.addItemToStore(item));
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            fail("addItemToStore failed");
+        }
     }
 
     /**
      * Test of addItemFromStore method, of class Session.
      */
     @Test
-    public void testRemoveItemFromStore() {
-        
-        
+    public void testRemoveItemFromStore() {       
         System.out.println("removeItemFromStore");
         Item item = new Item(2, "def", "def", 35.7);
         Session instance = new Session();
