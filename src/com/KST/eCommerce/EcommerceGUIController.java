@@ -23,6 +23,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -53,6 +54,12 @@ public class EcommerceGUIController implements Initializable {
     private TextField txtUsername;
     @FXML
     private PasswordField txtPassword;
+    @FXML
+    private TextField txtTitle;
+    @FXML
+    private TextArea txtDescription;
+    @FXML
+    private TextField txtPrice;
     @FXML
     private AnchorPane itemList;
 
@@ -97,6 +104,46 @@ public class EcommerceGUIController implements Initializable {
     }
 
     @FXML
+    private void addItem(Event e) {
+        EcommercePlatform platform = EcommerceGUI.platform;
+        Session session = platform.getSession();
+        String title = txtTitle.getText();
+        String description = txtDescription.getText();
+        String price = txtPrice.getText();
+        Double dPrice;
+
+        try {
+            dPrice = Double.parseDouble(price);
+            
+            int id = ((Seller) session.getUser()).createUniqueItemId();
+            Item item = new Item(id, title, description, dPrice);
+            
+            System.out.println(id);
+            
+            session.addItemToStore(item);
+            
+            lblResult.setStyle("-fx-text-fill:#00a405");
+            lblResult.setText("Added Item.");
+            
+            Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
+
+            try {
+                stage.setScene(new Scene(FXMLLoader.load(getClass().getResource(EcommerceGUI.VIEW_ITEMS))));
+                stage.show();
+            } catch (IOException ex) {
+                Logger.getLogger(EcommerceGUIController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } catch (NumberFormatException ex) {
+            lblResult.setStyle("-fx-text-fill:#f10f0f");
+            lblResult.setText("Failed to add item. Provide a valid price.");
+            
+            //Logger.getLogger(EcommerceGUIController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        lblResult.setVisible(true);
+    }
+
+    @FXML
     private void login(Event e) {
         EcommercePlatform platform = EcommerceGUI.platform;
         String username = txtUsername.getText();
@@ -104,7 +151,7 @@ public class EcommerceGUIController implements Initializable {
 
         if (platform.login(username, password)) {
             lblResult.setStyle("-fx-text-fill:#00a405");
-            lblResult.setText("Logging in");
+            lblResult.setText("Logging in.");
 
             Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
 
@@ -128,7 +175,7 @@ public class EcommerceGUIController implements Initializable {
 
         if (session.logout()) {
             Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
-            
+
             try {
                 stage.setScene(new Scene(FXMLLoader.load(getClass().getResource(EcommerceGUI.VIEW_STORE))));
                 stage.show();
