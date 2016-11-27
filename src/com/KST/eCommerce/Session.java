@@ -236,14 +236,18 @@ public class Session {
      * @return boolean
      */
     public boolean removeItemFromStore(Item item) {
-        // REQUIRES: user instanceof Seller and item != null
+        // REQUIRES: user instanceof Seller, item != null, and store conains item
         // MODIFIES: cart   
         // EFFECTS: removes the specified item from the store
         //          i.e. (Seller)user_post = (Seller)user - {item}
 
         if (user instanceof Seller && item != null) {
-            ((Seller) user).removeItem(item);
-            return true;
+            Seller s = ((Seller) user);
+            
+            if (s.getItems().contains(item)) {
+                s.removeItem(item);
+                return true;
+            }
         }
         
         return false;
