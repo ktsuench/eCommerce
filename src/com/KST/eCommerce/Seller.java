@@ -30,6 +30,7 @@ public class Seller extends User implements ItemList {
     private final int id;
     private final String password;
     private final ArrayList<Item> items;
+    private int itemId = -1;
 
     /**
      * Class Constructor
@@ -65,6 +66,20 @@ public class Seller extends User implements ItemList {
         return this.password.equals(password);
     }
 
+    /**
+     * Sets the id for which new items will begin incrementing from
+     * @param i 
+     */
+    public void setUniqueItemId(int i) {
+        if(itemId == -1) {
+            this.itemId = i;
+        }
+    }
+    
+    public int createUniqueItemId() {
+        return Integer.parseInt(""+this.id+(++this.itemId));
+    }
+    
     @Override
     public ArrayList<Item> getItems() {
          //EFFECTS: Returns clone of items for this.

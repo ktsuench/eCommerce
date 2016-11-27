@@ -1,7 +1,6 @@
 package com.KST.eCommerce;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -45,7 +44,12 @@ public class Database {
                     item = new Item(xml.getItemId(), xml.getItemTitle(), xml.getItemDescription(), xml.getItemPrice());
                     ((Seller) user).addItem(item);
                 } while (xml.nextItem());
-
+                
+                ArrayList<Item> items = ((Seller) user).getItems();
+                String id = ""+items.get(items.size()-1).getId();
+                int uid = Integer.parseInt(id.substring(1));
+                ((Seller) user).setUniqueItemId(uid);
+                
                 users.add(user);
             } while (xml.nextUser());
         } catch (Exception e) {
