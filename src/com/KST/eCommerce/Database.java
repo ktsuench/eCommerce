@@ -37,7 +37,7 @@ public class Database {
         Item item;
 
         try {
-            XMLHandler xml = new XMLHandler(dbFile);
+            XMLReader xml = new XMLReader(dbFile);
 
             do {
                 user = new Seller(xml.getName(), xml.getId(), xml.getPassword());
