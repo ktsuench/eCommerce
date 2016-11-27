@@ -80,22 +80,29 @@ public class SessionTest {
         try {     
             // Case 1: user exists and password is correct, users != null
             assertTrue(instance.login(users, "name", "pass"));
+            if(!instance.repOK()) fail("Rep invariant failed.");
             
             // Case 2: user exists and password is incorrect, users != null
             assertFalse(instance.login(users, "name", "password"));
+            if(!instance.repOK()) fail("Rep invariant failed.");
             
             // Case 3: user does not exist, users != null
             assertFalse(instance.login(users, "user", "password"));
+            if(!instance.repOK()) fail("Rep invariant failed.");
             
             // Case 4: users == null, produces exception
             instance.login(null, "user", "password");
+            if(!instance.repOK()) fail("Rep invariant failed.");
             
             // Case 5: name == null, produces exception
             instance.login(users, null, "password");
+            if(!instance.repOK()) fail("Rep invariant failed.");
             
             // Case 6: password == null, produces exception
             instance.login(users, "user", null);
         } catch (Exception e) {
+            if(!instance.repOK()) fail("Rep invariant failed.");
+            
             // Case 4, 5, and 6 continued
             String case4 = "No users.";
             String case5And6 = "No login information provided.";
@@ -117,12 +124,14 @@ public class SessionTest {
         
         // Case 1: user not logged in
         assertFalse(instance.logout());
+        if(!instance.repOK()) fail("Rep invariant failed.");
         
         // Login
         instance = this.instanceLogin(instance);
         
         // Case 2: user logged in
         assertTrue(instance.logout());
+        if(!instance.repOK()) fail("Rep invariant failed.");
     }
     
     /**
@@ -140,45 +149,53 @@ public class SessionTest {
         instance = new Session();
         
         assertEquals(failProcessing, instance.purchase(null));
+        if(!instance.repOK()) fail("Rep invariant failed.");
         
         // Case 2: user is not a seller, checkout == null and cart is not empty
         instance = new Session();
         instance.addToCart(new Item(11, "test", "test", 10.99));
         
         assertEquals(failProcessing, instance.purchase(null));
-
+        if(!instance.repOK()) fail("Rep invariant failed.");
+        
         // Case 3: user is not a seller, checkout != null and cart is empty
         instance = new Session();
         
         assertEquals(failProcessing, instance.purchase(checkout));
+        if(!instance.repOK()) fail("Rep invariant failed.");
         
         // Case 4 user is not a seller, checkout != null and cart not empty
         instance = new Session();
         instance.addToCart(new Item(11, "test", "test", 10.99));
 
         assertEquals(passProcessing, instance.purchase(checkout));
+        if(!instance.repOK()) fail("Rep invariant failed.");
         
         // Case 5: user is a seller, checkout == null and cart is empty
         instance = this.instanceLogin(new Session());
 
         assertEquals(failProcessing, instance.purchase(null));
+        if(!instance.repOK()) fail("Rep invariant failed.");
         
         // Case 6: user is a seller, checkout == null and cart is not empty
         instance = this.instanceLogin(new Session());
         instance.addToCart(new Item(11, "test", "test", 10.99));
         
         assertEquals(failProcessing, instance.purchase(null));
-
+        if(!instance.repOK()) fail("Rep invariant failed.");
+        
         // Case 7: user is a seller, checkout != null and cart is empty
         instance = this.instanceLogin(new Session());
         
         assertEquals(failProcessing, instance.purchase(checkout));
+        if(!instance.repOK()) fail("Rep invariant failed.");
         
         // Case 8 user is a seller, checkout != null and cart not empty
         instance = this.instanceLogin(new Session());
         instance.addToCart(new Item(11, "test", "test", 10.99));
         
         assertEquals(failProcessing, instance.purchase(checkout));
+        if(!instance.repOK()) fail("Rep invariant failed.");
     }
     
     /**
@@ -195,18 +212,22 @@ public class SessionTest {
         ItemCart cart  = instance.getCart();
 
         assertEquals(item, cart.getItems().get(cart.getSizeOfCart()-1));
+        if(!instance.repOK()) fail("Rep invariant failed.");
         
         // Case 2: user is a guest, item == null
         assertFalse(instance.addToCart(null));
+        if(!instance.repOK()) fail("Rep invariant failed.");
         
         // Login
         instance = this.instanceLogin(instance);
         
         // Case 3: user is not a guest, item != null
         assertFalse(instance.addToCart(item));
-
+        if(!instance.repOK()) fail("Rep invariant failed.");
+        
         // Case 4: user is not a guest, item == null
         assertFalse(instance.addToCart(null));
+        if(!instance.repOK()) fail("Rep invariant failed.");
     }
 
     /**
@@ -220,23 +241,28 @@ public class SessionTest {
         
         // Case 1: user is a guest, item == null, cart != null
         assertFalse(instance.removeFromCart(null));
+        if(!instance.repOK()) fail("Rep invariant failed.");
         
         // Case 2: user is a guest, item != null, cart != null, cart does not contain item
         assertFalse(instance.removeFromCart(item));
+        if(!instance.repOK()) fail("Rep invariant failed.");
         
         // Case 3: user is a guest, item != null, cart != null, cart contains item
         instance.addToCart(item);
         
         assertTrue(instance.removeFromCart(item));
+        if(!instance.repOK()) fail("Rep invariant failed.");
         
         // Login
         instance = this.instanceLogin(new Session());
         
         // Case 4: user is not a guest, item == null, cart == null
         assertFalse(instance.removeFromCart(null));
+        if(!instance.repOK()) fail("Rep invariant failed.");
         
         // Case 5: user is not a guest, item != null, cart == null
         assertFalse(instance.removeFromCart(item));
+        if(!instance.repOK()) fail("Rep invariant failed.");
     }
 
     /**
@@ -249,12 +275,14 @@ public class SessionTest {
         
         // Case 1: user is a guest && cart != null
         assertEquals(0, instance.getCartSize());
+        if(!instance.repOK()) fail("Rep invariant failed.");
         
         // Login
         instance = this.instanceLogin(instance);
             
         // Case 2: user is not a guest && cart != null
         assertEquals(-1, instance.getCartSize());
+        if(!instance.repOK()) fail("Rep invariant failed.");
     }
 
     /**
@@ -267,12 +295,14 @@ public class SessionTest {
         
         // Case 1: user is a guest && cart != null
         assertEquals(new ItemCart(), instance.getCart());
+        if(!instance.repOK()) fail("Rep invariant failed.");
         
         // Login
         instance = this.instanceLogin(instance);
         
         // Case 2: user is not a guest && cart != null
         assertEquals(null, instance.getCart());
+        if(!instance.repOK()) fail("Rep invariant failed.");
     }
     
     /**
@@ -286,9 +316,11 @@ public class SessionTest {
         
         // Case 1: user is not a seller, item != null
         assertFalse(instance.addItemToStore(item));
+        if(!instance.repOK()) fail("Rep invariant failed.");
         
         // Case 2: user is not a seller, item == null
         assertFalse(instance.addItemToStore(null));
+        if(!instance.repOK()) fail("Rep invariant failed.");
         
         // Login
         instance = this.instanceLogin(instance);
@@ -301,10 +333,12 @@ public class SessionTest {
 
             // Check that the last item in the store is the added item
             assertEquals(item, items.get(items.size()-1));
+            if(!instance.repOK()) fail("Rep invariant failed.");
         }
             
         // Case 4: user is a seller, item == null
         assertFalse(instance.addItemToStore(null));
+        if(!instance.repOK()) fail("Rep invariant failed.");
     }
 
     /**
@@ -318,23 +352,28 @@ public class SessionTest {
         
         // Case 1: user is not a seller, item == null
         assertFalse(instance.removeItemFromStore(null));
+        if(!instance.repOK()) fail("Rep invariant failed.");
         
         // Case 2: user is not a seller, item != null
         assertFalse(instance.removeItemFromStore(item));
+        if(!instance.repOK()) fail("Rep invariant failed.");
         
         // Login
         instance = this.instanceLogin(instance);
         
         // Case 3: user is a seller, item == null
         assertFalse(instance.removeItemFromStore(null));
+        if(!instance.repOK()) fail("Rep invariant failed.");
         
         // Case 3: user is a seller, item != null, store does not contain item
         assertFalse(instance.removeItemFromStore(item));
+        if(!instance.repOK()) fail("Rep invariant failed.");
         
         // Case 3: user is a seller, item != null, store does contain item
         instance.addItemToStore(item);
         
         assertTrue(instance.removeItemFromStore(item));
+        if(!instance.repOK()) fail("Rep invariant failed.");
     }
 
     /**
@@ -347,12 +386,15 @@ public class SessionTest {
         
         // Case 1: user is not a seller
         assertEquals(null, instance.getItemStore());
+        if(!instance.repOK()) fail("Rep invariant failed.");
         
         // Login
         instance = this.instanceLogin(instance);
+        if(!instance.repOK()) fail("Rep invariant failed.");
         
         // Case 2: user is a seller and store is empty
         assertEquals(new ArrayList<Item>(), instance.getItemStore());
+        if(!instance.repOK()) fail("Rep invariant failed.");
         
         // Case 3: user is a seller and store is not empty
         Item item = new Item(1, "test", "test", 10.99);
@@ -362,6 +404,7 @@ public class SessionTest {
         instance.addItemToStore(item);
         
         assertEquals(items, instance.getItemStore());
+        if(!instance.repOK()) fail("Rep invariant failed.");
     }
 
     /**
@@ -384,5 +427,6 @@ public class SessionTest {
         Session instance = new Session();
         
         assertEquals("User: " + User.UserRole.guest, instance.toString());
+        if(!instance.repOK()) fail("Rep invariant failed.");
     }
 }
