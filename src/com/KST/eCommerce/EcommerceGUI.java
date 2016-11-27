@@ -16,7 +16,7 @@ import javafx.stage.Stage;
 
 /**
  *
- * @author Ken
+ * @author Kent Tsuenchy
  */
 public class EcommerceGUI extends Application {
     public final static String BACKGROUND = "#4286f4";
