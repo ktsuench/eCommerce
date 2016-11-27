@@ -47,6 +47,11 @@ public class ItemCart implements ItemList {
         return this.numberOfItems;
     }
 
+    /**
+     * Retrieves a copy of the list of items
+     * 
+     * @return ArrayList<Item>
+     */
     @Override
     public ArrayList<Item> getItems() {
         //EFFECTS: Returns clone of items for this.
@@ -55,15 +60,20 @@ public class ItemCart implements ItemList {
     
     @Override
     public void addItem(Item item) {
+        //REQUIRES: item != null
         //MODIFIES: items, numberOfItems
         //EFFECTS: overrides the abstract method addItem. Adds the selected item 
         //to the arraylist and increments numberOfItems by 1.
-        items.add(item);
-        numberOfItems++;
+        
+        if(item != null) {
+            items.add(item);
+            numberOfItems++;
+        }
     }
 
     @Override
     public boolean removeItem(Item item) {
+        //REQUIES: item != null
         //MODIFIES: items, numberOfItems
         //EFFECTS: overrides the abstract method removeItem. removes the selected 
         //item from the arraylist and decrements numberOfItems by 1.
@@ -77,8 +87,13 @@ public class ItemCart implements ItemList {
          
     }
     
+    /**
+     * Clones a new instance of current instance.
+     * @return ItemCart
+     */
     @Override
     public ItemCart clone() {
+        //EFFECTS: returns a deep copy of current instance.
         ItemCart cart = new ItemCart();
         
         for(Item i: items) {
@@ -89,7 +104,7 @@ public class ItemCart implements ItemList {
     }
     
     public boolean repOk(){ 
-        //EFFECTS: Returns ture if the rep invariant holds for this,
+        //EFFECTS: Returns true if the rep invariant holds for this,
         //otherwise it returns false.
         return !(items == null || numberOfItems < 0);
     }
