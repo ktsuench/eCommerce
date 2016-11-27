@@ -113,6 +113,6 @@ public class Item {
     @Override
     public String toString() {
         //EFFECTS: Returns the string representation of the abstraction. 
-        return "id " + getId() + "title "+ getTitle() + "description "+ getDescription() + "price "+ getPrice(); 
+        return "id " + getId() + " title "+ getTitle() + " description "+ getDescription() + " price "+ getPrice(); 
     }
 }
