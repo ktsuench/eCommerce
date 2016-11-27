@@ -98,16 +98,6 @@ public class SessionTest {
     }
 
     /**
-     * Test of purchase method, of class Session.
-     */
-    /*@Test
-    public void testPurchase() {
-        System.out.println("purchase");
-        PaymentProcessor checkout = null;
-        Session instance = new Session();
-        instance.purchase(checkout);
-    }*/
-    /**
      * Test of addToCart method, of class Session.
      */
     @Test
@@ -124,8 +114,9 @@ public class SessionTest {
     @Test
     public void testRemoveFromCart() {
         System.out.println("removeFromCart");
-        Item item = null;
+        Item item = new Item(1, "test", "test", 10.99);
         Session instance = new Session();
+        instance.addToCart(item);
         instance.removeFromCart(item);
     }
 
@@ -135,9 +126,26 @@ public class SessionTest {
     @Test
     public void testAddItemToStore() {
         System.out.println("addItemToStore");
-        Item item = null;
+        ArrayList<User> users = new ArrayList();
+        users.add(new Seller("name", 1, "pass"));
+        String name = "name";
+        String password = "pass";
+        Item item = new Item(1, "test", "test", 10.99);
         Session instance = new Session();
-        instance.addItemToStore(item);
+        
+        // User needs to be logged in first to add items to store
+        try {
+            instance.login(users, name, password);
+            
+            // Add item to store
+            instance.addItemToStore(item);
+            ArrayList<Item> items = instance.getItemStore();
+            
+            // Check that the last item in the store is the added item
+            assertEquals(item, items.get(items.size()-1));
+        } catch (Exception e) {
+            fail("add item failed");
+        }
     }
 
     /**
@@ -146,8 +154,22 @@ public class SessionTest {
     @Test
     public void testRemoveItemFromStore() {
         System.out.println("removeItemFromStore");
-        Item item = null;
+        ArrayList<User> users = new ArrayList();
+        users.add(new Seller("name", 1, "pass"));
+        String name = "name";
+        String password = "pass";
+        Item item = new Item(1, "test", "test", 10.99);
         Session instance = new Session();
-        instance.removeItemFromStore(item);
+        
+        // User needs to be logged in to be able to remove items from store
+        try {
+            instance.login(users, name, password);
+            
+            // Add item first to store, then remove it
+            instance.addItemToStore(item);
+            assertTrue(instance.removeItemFromStore(item));
+        } catch (Exception e) {
+            fail("add item failed");
+        }
     }
 }
