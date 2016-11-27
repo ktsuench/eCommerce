@@ -18,12 +18,15 @@ public class Seller extends User implements ItemList {
     //AF(c) = Seller a such that 
     //          a.items = c.items
     //          a.id = c.id
+    //          a.name = c.name
     //          a.password = c.password
     
     //Rep Invariant: 
     //      c.items!= null
-    //      c.id >= 0 
+    //      c.id >= 0
+    //      c.name instanceof String
     //      c.password instanceof String
+    //      c.role = seller
     
     
     // Instance Variables
@@ -172,7 +175,7 @@ public class Seller extends User implements ItemList {
     public boolean repOk(){ 
         //EFFECTS: Returns ture if the rep invariant holds for this,
         //otherwise it returns false.
-        return !(id < 0 || items == null); 
+        return !(id < 0 || items == null) || name instanceof String || password instanceof String || role == User.UserRole.seller; 
     }
    
     @Override
@@ -180,8 +183,4 @@ public class Seller extends User implements ItemList {
        //EFFECTS: Returns the string representation of the abstraction. 
        return "id " + getId() + " items " + getItems(); 
     }
-    
-    
-    
-    
 }
