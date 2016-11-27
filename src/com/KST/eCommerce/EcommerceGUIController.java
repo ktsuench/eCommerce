@@ -211,7 +211,7 @@ public class EcommerceGUIController implements Initializable {
         Button cartAction;
 
         Session session = EcommerceGUI.platform.getSession();
-        ArrayList<Item> items = null;
+        ArrayList<Item> items;
 
         if (btnCart != null) {
             items = EcommerceGUI.platform.listItems();
@@ -219,6 +219,8 @@ public class EcommerceGUIController implements Initializable {
             items = EcommerceGUI.platform.getSession().getCart().getItems();
         } else if (btnLogout != null) {
             items = EcommerceGUI.platform.getSession().getItemStore();
+        } else {
+            items = new ArrayList();
         }
 
         double x = 20;

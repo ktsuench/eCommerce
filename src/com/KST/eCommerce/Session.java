@@ -163,6 +163,7 @@ public class Session {
      * Add an item to the cart
      *
      * @param item
+     * @return boolean
      */
     public boolean addToCart(Item item) {
         // REQUIRES: user is not a seller, item != null, and cart != null
@@ -300,11 +301,7 @@ public class Session {
      */
     public boolean repOK() {
 
-        if (user == null) {
-            return false;
-        }
-        
-        return true;
+        return user != null;
     }
 
     /**

@@ -49,7 +49,7 @@ public class ItemCart implements ItemList {
  
     
     //Instance variables
-    private ArrayList<Item> items;
+    private final ArrayList<Item> items;
     private int numberOfItems;
 
     //Constructor
@@ -69,7 +69,7 @@ public class ItemCart implements ItemList {
     /**
      * Retrieves a copy of the list of items
      * 
-     * @return ArrayList<Item>
+     * @return ArrayList[Item]
      */
     @Override
     public ArrayList<Item> getItems() {

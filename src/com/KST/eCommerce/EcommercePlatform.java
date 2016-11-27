@@ -54,14 +54,16 @@ public class EcommercePlatform {
     /**
      * Retrieve the list of store items
      *
-     * @return ArrayList<Item>
+     * @return ArrayList[Item>]
      */
     public ArrayList<Item> listItems() {
         ArrayList<Item> items = new ArrayList<>();
 
         for (User u : users) {
-            for (Item i : ((Seller) u).getItems()) {
-                items.add(i);
+            if (u instanceof Seller) {
+                for (Item i : ((Seller) u).getItems()) {
+                    items.add(i);
+                }
             }
         }
 

@@ -50,7 +50,7 @@ public class Guest extends User {
         if (o instanceof Guest) {
             Guest g = (Guest) o;
             
-            if (g.getName() != this.name) {
+            if (!g.getName().equals(this.name)) {
                 return false;
             }
         } else {
