@@ -19,24 +19,24 @@ public class ItemCart implements ItemList {
     //The ItemCart is mutable and is created for each session.  
     
     //Abstraction Function: 
-    //Repersents the selected items during a users session.
-    //AF(c): c.items = the items as selected by the user. Of type item.
-    //       c.numberOfItems = integer for the number of selected items.
+    //Represents the selected items during a users session.
+    //AF(c) = ItemCart a such that
+    //          a.items = c.items
+    //          a.numberOfItems = c.numberOfItems
     
     //Rep Invariant: 
-    //c.items != null
-    //c. numberOfItems >= 0
+    //      c.items != null && c.items is instanceof item. 
+    //      c. numberOfItems >= 0
  
     
     //Instance variables
     private ArrayList<Item> items;
-    private final int numberOfItems;
+    private int numberOfItems;
 
     //Constructor
     public ItemCart() {
         //EFFECTS: initinalizes the number of items to 0,
         //         also initinalizes items as a new ArrayList.  
-        
         this.numberOfItems = 0;
         this.items = new ArrayList();
     }
@@ -49,29 +49,43 @@ public class ItemCart implements ItemList {
 
     @Override
     public ArrayList<Item> getItems() {
+        //EFFECTS: Returns clone of items for this.
         return (ArrayList<Item>) this.items.clone();
     }
     
     @Override
     public void addItem(Item item) {
-        //MODIFIES: items
+        //MODIFIES: items, numberOfItems
         //EFFECTS: overrides the abstract method addItem. Adds the selected item 
-        //to the arraylist. 
+        //to the arraylist and increments numberOfItems by 1.
         items.add(item);
+        numberOfItems++;
     }
 
     @Override
     public boolean removeItem(Item item) {
-        //MODIFIES: items
+        //MODIFIES: items, numberOfItems
         //EFFECTS: overrides the abstract method removeItem. removes the selected 
-        //item from the arraylist. 
+        //item from the arraylist and decrements numberOfItems by 1.
        if(item == null){ 
            return false; 
        }else{ 
           items.remove(item);
-          return true; 
+          numberOfItems--;
+          return true;
        }
          
+    }
+    
+    @Override
+    public ItemCart clone() {
+        ItemCart cart = new ItemCart();
+        
+        for(Item i: items) {
+            cart.addItem((Item) i.clone());
+        }
+        
+        return cart;
     }
     
     public boolean repOk(){ 
@@ -82,12 +96,9 @@ public class ItemCart implements ItemList {
     
     @Override
     public String toString() {
-        
-        if (repOk() == true) { 
-            return "Valid Rep Invariant"; 
-        } else { 
-            return "Invalid Rep Invariant"; 
-        }
+      //EFFECTS: Returns the string representation of the abstraction. 
+      return "Number of Items " + getSizeOfCart()+ "items " + getItems();  
+      
     }
      
   

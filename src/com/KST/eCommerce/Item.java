@@ -16,18 +16,19 @@ public class Item {
     //parameters for the title, id ect. 
     
     //Abstraction Function: 
-    //Repersents individual the items for sale, where each item must have certian 
+    //Represents individual the items for sale, where each item must have certian 
     //information.
-    //AF(c): c.id = unique integer value for item.
-    //      c.title = a text name or title of item. 
-    //      c.description = a text description of the item. 
-    //      c.price = Price of the item (repersented in dollars, eg. $5.00)     
+    //AF(c) = Item a such that
+    //          a.id = c.id
+    //          a.title = c.title
+    //          a.description = c.description
+    //          a.price = c.price     
     
     //Rep Invariant: 
-    //c.title must be the valid title for the item.
-    //c.description must be a valid description for the item.
-    //c.id >= 0
-    //c.price >= 0.00
+    //      c.title instanceof String
+    //      c.description instanceof String 
+    //      c.id >= 0
+    //      c.price >= 0.00
     
     //Instance Variables
     private final int id;
@@ -92,6 +93,10 @@ public class Item {
         return hash;
     }
     
+    @Override
+    public Item clone() {
+        return new Item(id, title, description, price);
+    }
     
     public boolean repOk(){ 
         //EFFECTS: Returns true if the rep invariant holds for this, 
@@ -101,15 +106,13 @@ public class Item {
         } else { 
             return true; 
         }  
+        
+        
     } 
     
     @Override
     public String toString() {
-        
-        if (repOk() == true) { 
-            return "Valid Rep Invariant"; 
-        } else { 
-            return "Invalid Rep Invariant"; 
-        }
+        //EFFECTS: Returns the string representation of the abstraction. 
+        return "id " + getId() + "title "+ getTitle() + "description "+ getDescription() + "price "+ getPrice(); 
     }
 }

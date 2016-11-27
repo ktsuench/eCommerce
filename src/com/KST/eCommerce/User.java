@@ -6,9 +6,6 @@ package com.KST.eCommerce;
  */
 public abstract class User {
 
-    /**
-     * OVERVIEW
-     */
     // Enumeration for User Roles
     public enum UserRole {
         seller, guest

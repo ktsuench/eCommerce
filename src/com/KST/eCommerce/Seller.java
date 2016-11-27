@@ -14,19 +14,23 @@ public class Seller extends User implements ItemList {
     //a id and password. The Seller class is mutable and is created for each session.
     
     //Abstraction Function: 
-    //Repersents the selected items during a Sellers session. 
-    //AF(c): c.items = selected items by thy seller.
-    //      c.id = Seller.id 
-    //      c.password = Seller.password 
+    //Represents the selected items during a Sellers session. 
+    //AF(c) = Seller a such that 
+    //          a.items = c.items
+    //          a.id = c.id
+    //          a.password = c.password
     
     //Rep Invariant: 
-    //
-    // 
+    //      c.items!= null
+    //      c.id >= 0 
+    //      c.password instanceof String
+    
     
     // Instance Variables
     private final int id;
     private final String password;
     private final ArrayList<Item> items;
+    private int itemId = -1;
 
     /**
      * Class Constructor
@@ -58,28 +62,50 @@ public class Seller extends User implements ItemList {
      * @return boolean
      */
     public boolean validPassword(String password) {
+        //EFFECTS: Returns ture if the password equals this password.
         return this.password.equals(password);
     }
 
+    /**
+     * Sets the id for which new items will begin incrementing from
+     * @param i 
+     */
+    public void setUniqueItemId(int i) {
+        if(itemId == -1) {
+            this.itemId = i;
+        }
+    }
+    
+    public int createUniqueItemId() {
+        return Integer.parseInt(""+this.id+(++this.itemId));
+    }
+    
     @Override
     public ArrayList<Item> getItems() {
+         //EFFECTS: Returns clone of items for this.
         return (ArrayList<Item>) this.items.clone();
     }
 
     @Override
     public void addItem(Item item) {
+        //MODIFIES: items
+        //EFFETS: Overrides the abstract method addItem. Adds the selected item
+        //to the arraylist. 
         items.add(item);
     }
 
     @Override
     public boolean removeItem(Item item) {
+        //MODIFIES: items
+        //EFFECTS: Overrides the abstract method removeItem. removes the selected 
+        //item from the arraylist.
         if (item == null){ 
             return false; 
         } else { 
             items.remove(item);
             return true; 
         }
-        ////check if the item is null and ceck if the item exists
+        
     }
 
     @Override
@@ -109,4 +135,20 @@ public class Seller extends User implements ItemList {
 
         return true;
     }
+    
+    public boolean repOk(){ 
+        //EFFECTS: Returns ture if the rep invariant holds for this,
+        //otherwise it returns false.
+        return !(id < 0 || items == null); 
+    }
+   
+     @Override
+    public String toString() {
+       //EFFECTS: Returns the string representation of the abstraction. 
+       return "id " + getId() + " items " + getItems(); 
+    }
+    
+    
+    
+    
 }

@@ -60,6 +60,7 @@ public class SessionTest {
             boolean login = instance.login(users, name, password);
             assertTrue(login);
         } catch (Exception e) {
+            System.out.println(e.getMessage());
             fail("login failed");
         }
     }
@@ -88,13 +89,13 @@ public class SessionTest {
         Session instance = new Session();
 
         try {
-            boolean login = instance.login(users, name, password);
+            instance.login(users, name, password);
+            boolean logout = instance.logout();
+            assertTrue(logout);
         } catch (Exception e) {
+            System.out.println(e.getMessage());
             fail("logout failed");
         }
-        
-        boolean logout = instance.logout();
-        assertTrue(logout);
     }
     
     /**
@@ -106,6 +107,9 @@ public class SessionTest {
         Item item = new Item(1, "abc", "abc", 25.3);
         Session instance = new Session();
         instance.addToCart(item);
+        ItemCart cart  = instance.getCart();
+        
+        assertEquals(item, cart.getItems().get(cart.getSizeOfCart()-1));
     }
 
     /**
@@ -114,10 +118,12 @@ public class SessionTest {
     @Test
     public void testRemoveFromCart() {
         System.out.println("removeFromCart");
-        Item item = new Item(1, "abc", "abc", 25.3);
+        Item item = new Item(1, "test", "test", 10.99);
         Session instance = new Session();
         instance.addToCart(item);
-        assertTrue(instance.removeFromCart(item));
+        instance.removeFromCart(item);
+        
+        assertFalse(instance.getCart().getItems().contains(item));
     }
 
     /**
@@ -126,20 +132,26 @@ public class SessionTest {
     @Test
     public void testAddItemToStore() {
         System.out.println("addItemToStore");
-        Item item = new Item(2, "def", "def", 35.7);
-        Session instance = new Session();
-        
         ArrayList<User> users = new ArrayList();
         users.add(new Seller("name", 1, "pass"));
         String name = "name";
         String password = "pass";
-   
+        Item item = new Item(1, "test", "test", 10.99);
+        Session instance = new Session();
+        
+        // User needs to be logged in first to add items to store
         try {
-          boolean login = instance.login(users, name, password);            
-          assertTrue(instance.addItemToStore(item));
+            instance.login(users, name, password);
+            
+            // Add item to store
+            instance.addItemToStore(item);
+            ArrayList<Item> items = instance.getItemStore();
+            
+            // Check that the last item in the store is the added item
+            assertEquals(item, items.get(items.size()-1));
         } catch (Exception e) {
             System.out.println(e.getMessage());
-            fail("addItemToStore failed");
+            fail("add item failed");
         }
     }
 
@@ -149,8 +161,23 @@ public class SessionTest {
     @Test
     public void testRemoveItemFromStore() {       
         System.out.println("removeItemFromStore");
-        Item item = new Item(2, "def", "def", 35.7);
+        ArrayList<User> users = new ArrayList();
+        users.add(new Seller("name", 1, "pass"));
+        String name = "name";
+        String password = "pass";
+        Item item = new Item(1, "test", "test", 10.99);
         Session instance = new Session();
-        instance.removeItemFromStore(item);
+        
+        // User needs to be logged in to be able to remove items from store
+        try {
+            instance.login(users, name, password);
+            
+            // Add item first to store, then remove it
+            instance.addItemToStore(item);
+            assertTrue(instance.removeItemFromStore(item));
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            fail("add item failed");
+        }
     }
 }
