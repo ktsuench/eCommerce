@@ -6,6 +6,7 @@
 package com.KST.eCommerce;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  *
@@ -87,6 +88,51 @@ public class ItemCart implements ItemList {
          
     }
     
+    public boolean containsItem(Item item) {
+        //REQUIES: item != null
+        //EFFECTS: returns the result of arraylist containing item
+        
+        if (item != null) {
+            return items.contains(item);
+        }    
+        return false;
+    }
+    
+    @Override
+    public boolean equals(Object o) {
+        if (o instanceof ItemCart) {
+            ItemCart i = (ItemCart) o;
+            
+            if (i.getSizeOfCart() != this.numberOfItems) {
+                return false;
+            } else {
+                Item a;
+                Item b;
+                
+                for (int j = 0; j < numberOfItems; j++) {
+                    a = i.getItems().get(j);
+                    b = items.get(j);
+                    
+                    if(!a.equals(b)) {
+                        return false;
+                    }
+                }
+            }
+        } else {
+            return false;
+        }
+        
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 29 * hash + Objects.hashCode(this.items);
+        hash = 29 * hash + this.numberOfItems;
+        return hash;
+    }
+    
     /**
      * Clones a new instance of current instance.
      * @return ItemCart
@@ -112,7 +158,7 @@ public class ItemCart implements ItemList {
     @Override
     public String toString() {
       //EFFECTS: Returns the string representation of the abstraction. 
-      return "Number of Items " + getSizeOfCart()+ "items " + getItems();  
+      return "Number of Items " + getSizeOfCart()+ " items " + getItems();  
       
     }
      
