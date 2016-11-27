@@ -16,6 +16,7 @@ public class Database {
     //Represents the stored information for the users and items.
     //AF(c) = Database a such that 
     //          a.dbFile = c.dbFile
+    //          
     
     //Rep Invariant: 
     //      c.dbFile != null
@@ -29,8 +30,8 @@ public class Database {
     
     //Methods
     public ArrayList<User> readUsers() {
-        //MODIFIES:
-        //EFFECTS: 
+        //MODIFIES: users and item
+        //EFFECTS: Stores user and item information into arraylists
         ArrayList<User> users = new ArrayList<>();
         User user;
         Item item;
@@ -66,7 +67,7 @@ public class Database {
     }
     
     public void closeDb() {
-        //EFFECTS:
+        //EFFECTS: Closes the dbFile. 
         this.dbFile = null;
     }
     
