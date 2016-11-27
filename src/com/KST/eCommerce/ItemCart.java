@@ -21,9 +21,9 @@ public class ItemCart implements ItemList {
     
     //Abstraction Function: 
     //Represents the selected items during a users session.
-    //AF(c) = ItemCart a such that
-    //          a.items = c.items
-    //          a.numberOfItems = c.numberOfItems
+    //AF(c) = ItemCart x such that
+    //          x.items = c.items
+    //          x.numberOfItems = c.numberOfItems
     
     //Rep Invariant: 
     //      c.items != null && c.items is instanceof item. 

@@ -15,11 +15,11 @@ public class Seller extends User implements ItemList {
     
     //Abstraction Function: 
     //Represents the selected items during a Sellers session. 
-    //AF(c) = Seller a such that 
-    //          a.items = c.items
-    //          a.id = c.id
-    //          a.name = c.name
-    //          a.password = c.password
+    //AF(c) = Seller x such that 
+    //          x.items = c.items
+    //          x.id = c.id
+    //          x.name = c.name
+    //          x.password = c.password
     
     //Rep Invariant: 
     //      c.items!= null

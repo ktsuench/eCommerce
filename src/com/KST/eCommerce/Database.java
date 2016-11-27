@@ -13,10 +13,11 @@ public class Database {
     //users and items. 
     
     //Abstraction Function: 
-    //Represents the stored information for the users and items.
-    //AF(c) = Database a such that 
-    //          a.dbFile = c.dbFile
-    //          
+    //Represents the stored information for the users and items. It should also 
+    //follow the xml format. 
+    //AF(c) = Database x such that 
+    //          x.dbFile = c.dbFile
+           
     
     //Rep Invariant: 
     //      c.dbFile != null
@@ -80,6 +81,6 @@ public class Database {
     @Override
     public String toString(){ 
         //EFFECTS:Returns the string representation of the abstraction. 
-        return ""; 
+        return "Users " + readUsers(); 
     }
 }

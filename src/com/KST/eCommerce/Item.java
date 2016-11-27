@@ -18,11 +18,11 @@ public class Item {
     //Abstraction Function: 
     //Represents individual the items for sale, where each item must have certian 
     //information.
-    //AF(c) = Item a such that
-    //          a.id = c.id
-    //          a.title = c.title
-    //          a.description = c.description
-    //          a.price = c.price     
+    //AF(c) = Item x such that
+    //          x.id = c.id
+    //          x.title = c.title
+    //          x.description = c.description
+    //          x.price = c.price     
     
     //Rep Invariant: 
     //      c.title instanceof String
