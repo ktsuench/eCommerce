@@ -185,25 +185,36 @@ public class Session {
      * Remove the idem from the store
      *
      * @param item
+     * @return boolean
      */
-    public void removeItemFromStore(Item item) {
+    public boolean removeItemFromStore(Item item) {
         // REQUIRES: user != null
         // MODIFIES: cart   
         // EFFECTS: removes the specified item from the store
         //          i.e. (Seller)user_post = (Seller)user - {item}
 
-        ((Seller) user).removeItem(item);
+        if(item == null){
+            return false;
+        } else {
+            ((Seller) user).removeItem(item);
+            return true;
+        }
     }
 
     /**
      * Retrieves the items of the seller
      *
-     * @return ArrayList<Item>
+     * @return ArrayList
      */
     public ArrayList<Item> getItemStore() {
         // REQUIRES: user != null
         // EFFECTS: returns the items of the seller
-        return ((Seller) user).getItems();
+        
+        if(user != null) {
+            return ((Seller) user).getItems();
+        } else {
+            return null;
+        }
     }
 
     /**
