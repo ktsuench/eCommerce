@@ -11,7 +11,7 @@ import static org.junit.Assert.*;
  * @author Kureishi Shivanand
  */
 public class SessionTest {
-
+                            
     public SessionTest() {
     }
 
@@ -24,7 +24,7 @@ public class SessionTest {
     }
 
     /**
-     * Test of login method, of class Session.
+     * Test of login (false) method, of class Session.
      */
     @Test
     public void testLogin() {
@@ -45,7 +45,7 @@ public class SessionTest {
     }
 
     /**
-     * Test of login method, of class Session.
+     * Test of login (true) method, of class Session.
      */
     @Test
     public void testTrueLogin() {
@@ -66,7 +66,7 @@ public class SessionTest {
     }
 
     /**
-     * Test of logout method, of class Session.
+     * Test of logout (false) method, of class Session.
      */
     @Test
     public void testLogout() {
@@ -77,7 +77,7 @@ public class SessionTest {
     }
 
     /**
-     * Test of logout method, of class Session.
+     * Test of logout (false) method, of class Session.
      */
     @Test
     public void testTrueLogout() {
@@ -97,7 +97,7 @@ public class SessionTest {
             fail("logout failed");
         }
     }
-
+    
     /**
      * Test of addToCart method, of class Session.
      */
@@ -159,7 +159,7 @@ public class SessionTest {
      * Test of addItemFromStore method, of class Session.
      */
     @Test
-    public void testRemoveItemFromStore() {
+    public void testRemoveItemFromStore() {       
         System.out.println("removeItemFromStore");
         ArrayList<User> users = new ArrayList();
         users.add(new Seller("name", 1, "pass"));

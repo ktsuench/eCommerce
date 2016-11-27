@@ -15,15 +15,11 @@ public class Session {
      * respectively.
      */
     
-    /* AF(c): */
-    // {c.session.users | c.users.name = name && c.users.password = password}
-    // c.session.users
+    // Abstraction function is
+    //          c.cart = cart
     
-    /* The rep invariant is: */
-    // c.users != null &&
-    // for all integers i, j,
-    // (0 <= i < j < c.users.size) =>
-    // (c.users.[i].name || c.users.[i].password) != (c.users.[j].name || c.users.[j].password)
+    // The rep invariant is:
+    // c.cart != null
     
 //Instance Variables
     private boolean isLoggedIn;
@@ -137,6 +133,7 @@ public class Session {
      * Remove an item to the cart
      *
      * @param item
+     * @return boolean
      */
     public void removeFromCart(Item item) {
         // REQUIRES: item != null
@@ -171,14 +168,19 @@ public class Session {
      * Add the idem to the store
      *
      * @param item
+     * @return boolean
      */
-    public void addItemToStore(Item item) {
+    public boolean addItemToStore(Item item) {
         // REQUIRES: item != null
         // MODIFIES: cart   
         // EFFECTS: adds the specified item to the store
         //          i.e. (Seller)user_post = (Seller)user + {item}
-
-        ((Seller) user).addItem(item);
+        
+        if (isLoggedIn == true) {
+            ((Seller) user).addItem(item);
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -227,7 +229,6 @@ public class Session {
         if (user == null) {
             return false;
         }
-
         return true;
     }
 
@@ -238,6 +239,11 @@ public class Session {
      */
     @Override
     public String toString() {
-        return "Name" + user.getName() + "Role" + user.getRole();
+        if (repOK() == true) {
+            return "Valid";
+        }
+        else {
+            return "Invalid";
+        }
     }
 }
