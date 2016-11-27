@@ -60,6 +60,7 @@ public class SessionTest {
             boolean login = instance.login(users, name, password);
             assertTrue(login);
         } catch (Exception e) {
+            System.out.println(e.getMessage());
             fail("login failed");
         }
     }
@@ -88,13 +89,13 @@ public class SessionTest {
         Session instance = new Session();
 
         try {
-            boolean login = instance.login(users, name, password);
+            instance.login(users, name, password);
+            boolean logout = instance.logout();
+            assertTrue(logout);
         } catch (Exception e) {
+            System.out.println(e.getMessage());
             fail("logout failed");
         }
-        
-        boolean logout = instance.logout();
-        assertTrue(logout);
     }
 
     /**
@@ -106,6 +107,9 @@ public class SessionTest {
         Item item = new Item(1, "abc", "abc", 25.3);
         Session instance = new Session();
         instance.addToCart(item);
+        ItemCart cart  = instance.getCart();
+        
+        assertEquals(item, cart.getItems().get(cart.getSizeOfCart()-1));
     }
 
     /**
@@ -118,6 +122,8 @@ public class SessionTest {
         Session instance = new Session();
         instance.addToCart(item);
         instance.removeFromCart(item);
+        
+        assertFalse(instance.getCart().getItems().contains(item));
     }
 
     /**
@@ -144,6 +150,7 @@ public class SessionTest {
             // Check that the last item in the store is the added item
             assertEquals(item, items.get(items.size()-1));
         } catch (Exception e) {
+            System.out.println(e.getMessage());
             fail("add item failed");
         }
     }
@@ -169,6 +176,7 @@ public class SessionTest {
             instance.addItemToStore(item);
             assertTrue(instance.removeItemFromStore(item));
         } catch (Exception e) {
+            System.out.println(e.getMessage());
             fail("add item failed");
         }
     }
