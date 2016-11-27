@@ -18,6 +18,7 @@ public class Database {
     //          a.dbFile = c.dbFile
     
     //Rep Invariant: 
+    //      c.dbFile != null
     
     private File dbFile;
 
@@ -67,5 +68,17 @@ public class Database {
     public void closeDb() {
         //EFFECTS:
         this.dbFile = null;
+    }
+    
+      public boolean repOk(){ 
+        //EFFECTS: Returns ture if the rep invariant holds for this,
+        //otherwise it returns false.
+        return !(dbFile == null); 
+    }
+    
+    @Override
+    public String toString(){ 
+        //EFFECTS:Returns the string representation of the abstraction. 
+        return ""; 
     }
 }
