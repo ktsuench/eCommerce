@@ -71,6 +71,15 @@ public class EcommercePlatform {
     }
 
     /**
+     * Retrieve the list of store items
+     *
+     * @return ArrayList&lt;Item&gt;
+     */
+    public ArrayList<Item> viewCart() {
+        return this.session.getCart().getItems();
+    }
+
+    /**
      * Retrieve current session
      *
      * @return Session
