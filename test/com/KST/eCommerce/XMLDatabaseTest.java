@@ -35,9 +35,9 @@ import static org.junit.Assert.*;
  *
  * @author Kent Tsuenchy
  */
-public class DatabaseTest {
+public class XMLDatabaseTest {
 
-    public DatabaseTest() {
+    public XMLDatabaseTest() {
     }
 
     @BeforeClass
@@ -62,7 +62,7 @@ public class DatabaseTest {
     @Test
     public void testReadUsers() {
         System.out.println("readUsers");
-        Database instance = new Database("users.data");
+        XMLDatabase instance = new XMLDatabase("users.data");
         ArrayList<User> expResult = new ArrayList<>();
 
         User bob = new Seller("bob", 1, "12345678");
@@ -88,6 +88,7 @@ public class DatabaseTest {
         ArrayList<User> result = instance.readUsers();
 
         assertEquals(expResult, result);
+        if (!instance.repOk()) fail("Rep invariant failed.");
     }
 
     /**
@@ -97,10 +98,65 @@ public class DatabaseTest {
     public void testWriteUsers() {
         System.out.println("writeUsers");
         ArrayList<User> users = null;
-        Database instance = new Database("users.data");
-        instance.writeUsers(users);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("Implement writing to file.");
+        XMLDatabase instance = new XMLDatabase("users.data");
+        // TODO: Complete write test once write method implmented
+        assertTrue(instance.writeUsers(users));
+    }
+
+    /**
+     * Test of closeDb method, of class XMLDatabase.
+     */
+    @Test
+    public void testCloseDb() {
+        System.out.println("closeDb");
+        XMLDatabase instance = new XMLDatabase("user.data");
+        assertTrue(instance.closeDb());
+        if (!instance.repOk()) fail("Rep invariant failed.");
+    }
+
+    /**
+     * Test of repOk method, of class XMLDatabase.
+     */
+    @Test
+    public void testRepOk() {
+        System.out.println("repOk");
+        XMLDatabase instance = new XMLDatabase("users.data");
+        assertTrue(instance.repOk());
+    }
+
+    /**
+     * Test of toString method, of class XMLDatabase.
+     */
+    @Test
+    public void testToString() {
+        System.out.println("toString");
+        XMLDatabase instance = new XMLDatabase("users.data");
+        ArrayList<User> users = new ArrayList<>();
+
+        User bob = new Seller("bob", 1, "12345678");
+        User sue = new Seller("sue", 2, "12345678");
+        User hugo = new Seller("hugo", 3, "12345678");
+
+        ((Seller) bob).addItem(new Item(11, "Power Bank", "16000 mAh, quick charge 2.0", 30.0));
+        ((Seller) bob).addItem(new Item(12, "USB 3.0 Wire", "200 cm in length", 10.0));
+        ((Seller) bob).addItem(new Item(13, "4 port USB 3.0 Hub", "Max power: 900 mAh", 17.0));
+
+        ((Seller) sue).addItem(new Item(21, "Nail Polish", "Pink", 10.0));
+        ((Seller) sue).addItem(new Item(22, "Beats by Dr. Dre", "High Quality", 200.0));
+        ((Seller) sue).addItem(new Item(23, "iPhone 7", "Refurbished", 550.0));
+        ((Seller) sue).addItem(new Item(24, "Apple Watch", "Refurbished", 525.0));
+
+        ((Seller) hugo).addItem(new Item(31, "Arduino", "Starter Kit", 99.99));
+        ((Seller) hugo).addItem(new Item(32, "Intel Edison", "Starter Kit", 99.99));
+
+        users.add(bob);
+        users.add(sue);
+        users.add(hugo);
+        
+        String expResult = "Users " + users.toString();
+        String result = instance.toString();
+        assertEquals(expResult, result);
+        if (!instance.repOk()) fail("Rep invariant failed.");
     }
 
 }

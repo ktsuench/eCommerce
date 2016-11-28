@@ -42,7 +42,7 @@ public class EcommercePlatform {
      * Class Constructor
      */
     public EcommercePlatform() {
-        Database db = new Database("users.data");
+        Database db = new XMLDatabase("users.data");
 
         this.session = new Session();
         this.checkout = new PaymentProcessor();
