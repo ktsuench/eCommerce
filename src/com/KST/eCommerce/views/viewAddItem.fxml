@@ -12,7 +12,7 @@
                <AnchorPane minHeight="60.0" minWidth="600.0" style="-fx-background-color: #4286f4;">
                   <children>
                       <Button fx:id="btnItems" layoutX="430" layoutY="10" minHeight="40" minWidth="75" onAction="#viewHandler" text="Items" />
-                      <Button fx:id="btnLogout" layoutX="515" layoutY="10" minHeight="40" minWidth="75" onAction="#viewHandler" text="Logout" />
+                      <Button fx:id="btnLogout" layoutX="515" layoutY="10" minHeight="40" minWidth="75" onAction="#logout" text="Logout" />
                       <Label fx:id="label" alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="10.0" minHeight="40.0" minWidth="200.0" text="eCommerce" textAlignment="CENTER" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="28.0" />
