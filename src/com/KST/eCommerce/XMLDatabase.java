@@ -24,6 +24,7 @@
 package com.KST.eCommerce;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -55,9 +56,13 @@ public class XMLDatabase extends Database {
      * Class Constructor
      * 
      * @param filename 
+     * @throws java.io.FileNotFoundException 
      */
-    public XMLDatabase(String filename) {
+    public XMLDatabase(String filename) throws FileNotFoundException {
         this.dbFile = new File(filename);
+        if(!this.dbFile.exists()) {
+            throw new FileNotFoundException();
+        }
     }
     
     /**
@@ -78,7 +83,7 @@ public class XMLDatabase extends Database {
         Item item;
             
         try {    
-            XMLReader xml = new XMLReader(dbFile);
+            XMLReader xml = new XMLReader(this.dbFile);
 
             do {
                 user = new Seller(xml.getName(), xml.getId(), xml.getPassword());

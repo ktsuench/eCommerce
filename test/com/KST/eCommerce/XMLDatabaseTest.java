@@ -23,6 +23,7 @@
  */
 package com.KST.eCommerce;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -58,9 +59,10 @@ public class XMLDatabaseTest {
 
     /**
      * Test of readUsers method, of class Database.
+     * @throws java.io.FileNotFoundException
      */
     @Test
-    public void testReadUsers() {
+    public void testReadUsers() throws FileNotFoundException {
         System.out.println("readUsers");
         XMLDatabase instance = new XMLDatabase("users.data");
         ArrayList<User> expResult = new ArrayList<>();
@@ -93,9 +95,10 @@ public class XMLDatabaseTest {
 
     /**
      * Test of writeUsers method, of class Database.
+     * @throws java.io.FileNotFoundException
      */
     @Test
-    public void testWriteUsers() {
+    public void testWriteUsers() throws FileNotFoundException {
         System.out.println("writeUsers");
         ArrayList<User> users = null;
         XMLDatabase instance = new XMLDatabase("users.data");
@@ -105,20 +108,22 @@ public class XMLDatabaseTest {
 
     /**
      * Test of closeDb method, of class XMLDatabase.
+     * @throws java.io.FileNotFoundException
      */
     @Test
-    public void testCloseDb() {
+    public void testCloseDb() throws FileNotFoundException {
         System.out.println("closeDb");
-        XMLDatabase instance = new XMLDatabase("user.data");
+        XMLDatabase instance = new XMLDatabase("users.data");
         assertTrue(instance.closeDb());
         if (!instance.repOk()) fail("Rep invariant failed.");
     }
 
     /**
      * Test of repOk method, of class XMLDatabase.
+     * @throws java.io.FileNotFoundException
      */
     @Test
-    public void testRepOk() {
+    public void testRepOk() throws FileNotFoundException {
         System.out.println("repOk");
         XMLDatabase instance = new XMLDatabase("users.data");
         assertTrue(instance.repOk());
@@ -126,9 +131,10 @@ public class XMLDatabaseTest {
 
     /**
      * Test of toString method, of class XMLDatabase.
+     * @throws java.io.FileNotFoundException
      */
     @Test
-    public void testToString() {
+    public void testToString() throws FileNotFoundException {
         System.out.println("toString");
         XMLDatabase instance = new XMLDatabase("users.data");
         ArrayList<User> users = new ArrayList<>();

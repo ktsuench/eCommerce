@@ -23,6 +23,7 @@
  */
 package com.KST.eCommerce;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -36,19 +37,32 @@ public class EcommercePlatform {
     // Instance Variables
     private final Session session;
     private final PaymentProcessor checkout;
-    private final ArrayList<User> users;
+    private ArrayList<User> users;
 
     /**
      * Class Constructor
      */
     public EcommercePlatform() {
-        Database db = new XMLDatabase("users.data");
+        Database db;
+        try {
+            db = new XMLDatabase("users.data");
+            
+            this.users = db.readUsers();
+            
+            db.closeDb();
+        } catch (FileNotFoundException ex) {
+            //Logger.getLogger(EcommercePlatform.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex.getMessage());
+            
+            Seller s = new Seller("bob",1,"12345678");
+            s.addItem(new Item(11,"iPhone 7","Refurbished",559.99));
+            s.setUniqueItemId(1);
+            
+            this.users.add(s);
+        }
 
         this.session = new Session();
         this.checkout = new DummyPaymentProcessor();
-        this.users = db.readUsers();
-
-        db.closeDb();
     }
 
     /**
