@@ -69,7 +69,7 @@ public class ItemCart implements ItemList {
     /**
      * Retrieves a copy of the list of items
      * 
-     * @return ArrayList[Item]
+     * @return ArrayList&lt;Item&gt;
      */
     @Override
     public ArrayList<Item> getItems() {

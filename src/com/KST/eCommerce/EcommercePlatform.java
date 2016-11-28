@@ -54,9 +54,9 @@ public class EcommercePlatform {
     /**
      * Retrieve the list of store items
      *
-     * @return ArrayList[Item>]
+     * @return ArrayList&lt;Item&gt;
      */
-    public ArrayList<Item> listItems() {
+    public ArrayList<Item> viewStore() {
         ArrayList<Item> items = new ArrayList<>();
 
         for (User u : users) {
