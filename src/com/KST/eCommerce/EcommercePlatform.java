@@ -71,7 +71,7 @@ public class EcommercePlatform {
     }
 
     /**
-     * Retrieve the list of store items
+     * Retrieve the list of cart items
      *
      * @return ArrayList&lt;Item&gt;
      */
@@ -84,7 +84,7 @@ public class EcommercePlatform {
     }
 
     /**
-     * Retrieve the list of store items
+     * Retrieve the list of seller items
      *
      * @return ArrayList&lt;Item&gt;
      */

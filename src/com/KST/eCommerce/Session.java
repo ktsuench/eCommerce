@@ -240,7 +240,7 @@ public class Session {
     }
     
     /**
-     * Add the idem to the store
+     * Add the item to the store
      *
      * @param item
      * @return boolean
@@ -259,7 +259,7 @@ public class Session {
     }
 
     /**
-     * Remove the idem from the store
+     * Remove the item from the store
      *
      * @param item
      * @return boolean
