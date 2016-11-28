@@ -136,8 +136,6 @@ public class EcommerceGUIController implements Initializable {
             int id = ((Seller) session.getUser()).createUniqueItemId();
             Item item = new Item(id, title, description, dPrice);
             
-            System.out.println(id);
-            
             session.addItemToStore(item);
             
             lblResult.setStyle("-fx-text-fill:#00a405");
