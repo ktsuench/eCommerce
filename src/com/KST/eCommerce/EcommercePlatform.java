@@ -76,9 +76,27 @@ public class EcommercePlatform {
      * @return ArrayList&lt;Item&gt;
      */
     public ArrayList<Item> viewCart() {
-        return this.session.getCart().getItems();
+        if(this.session.getUser()instanceof Guest) {
+            return this.session.getCart().getItems();
+        }
+        
+        return null;
     }
 
+    /**
+     * Retrieve the list of store items
+     *
+     * @return ArrayList&lt;Item&gt;
+     */
+    public ArrayList<Item> viewStoreInventory() {
+        if(this.session.getUser() instanceof Seller) {
+            Seller s = (Seller) this.session.getUser();
+            return s.getItems();
+        }
+        
+        return null;
+    }
+    
     /**
      * Retrieve current session
      *

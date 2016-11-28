@@ -218,7 +218,7 @@ public class EcommerceGUIController implements Initializable {
         } else if (btnStore != null) {
             items = EcommerceGUI.platform.viewCart();
         } else if (btnLogout != null) {
-            items = EcommerceGUI.platform.getSession().getItemStore();
+            items = EcommerceGUI.platform.viewStoreInventory();
         } else {
             items = new ArrayList();
         }
