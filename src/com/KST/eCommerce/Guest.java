@@ -23,6 +23,8 @@
  */
 package com.KST.eCommerce;
 
+import java.util.Objects;
+
 /**
  *
  * @author Kent Tsuenchy
@@ -58,5 +60,12 @@ public class Guest extends User {
         }
         
         return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 20 * hash + Objects.hashCode(this.name);
+        return hash;
     }
 }
