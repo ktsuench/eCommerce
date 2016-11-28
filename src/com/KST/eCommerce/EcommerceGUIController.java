@@ -130,30 +130,44 @@ public class EcommerceGUIController implements Initializable {
         String price = txtPrice.getText();
         Double dPrice;
 
-        try {
-            dPrice = Double.parseDouble(price);
-            
-            int id = ((Seller) session.getUser()).createUniqueItemId();
-            Item item = new Item(id, title, description, dPrice);
-            
-            session.addItemToStore(item);
-            
-            lblResult.setStyle("-fx-text-fill:#00a405");
-            lblResult.setText("Added Item.");
-            
-            Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
-
-            try {
-                stage.setScene(new Scene(FXMLLoader.load(getClass().getResource(EcommerceGUI.VIEW_ITEMS))));
-                stage.show();
-            } catch (IOException ex) {
-                Logger.getLogger(EcommerceGUIController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        } catch (NumberFormatException ex) {
+        if (title.isEmpty() || description.isEmpty()) {
             lblResult.setStyle("-fx-text-fill:#f10f0f");
-            lblResult.setText("Failed to add item. Provide a valid price.");
-            
-            //Logger.getLogger(EcommerceGUIController.class.getName()).log(Level.SEVERE, null, ex);
+            lblResult.setText("Failed to add item. Missing title and/or description.");
+        } else {
+            try {
+                dPrice = Double.parseDouble(price);
+
+                if (dPrice < 0.01) {
+                    lblResult.setStyle("-fx-text-fill:#f10f0f");
+                    lblResult.setText("Failed to add item. Provide a valid price.");
+                } else {
+                    int id = ((Seller) session.getUser()).createUniqueItemId();
+                    Item item = new Item(id, title, description, dPrice);
+
+                    session.addItemToStore(item);
+
+                    lblResult.setStyle("-fx-text-fill:#00a405");
+                    lblResult.setText("Added Item.");
+
+                    Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
+
+                    try {
+                        stage.setScene(new Scene(FXMLLoader.load(getClass().getResource(EcommerceGUI.VIEW_ITEMS))));
+                        stage.show();
+                        
+                        lblResult = (Label) stage.getScene().lookup("#lblResult");
+                        lblResult.setStyle("-fx-text-fill:#00a405");
+                        lblResult.setText("Added " + item.getTitle() + ".");
+                    } catch (IOException ex) {
+                        Logger.getLogger(EcommerceGUIController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            } catch (NumberFormatException ex) {
+                lblResult.setStyle("-fx-text-fill:#f10f0f");
+                lblResult.setText("Failed to add item. Provide a valid price.");
+
+                //Logger.getLogger(EcommerceGUIController.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         
         lblResult.setVisible(true);
@@ -174,6 +188,10 @@ public class EcommerceGUIController implements Initializable {
             try {
                 stage.setScene(new Scene(FXMLLoader.load(getClass().getResource(EcommerceGUI.VIEW_ITEMS))));
                 stage.show();
+                
+                lblResult = (Label) stage.getScene().lookup("#lblResult");
+                lblResult.setStyle("-fx-text-fill:#00a405");
+                lblResult.setText(username + " is logged in.");
             } catch (IOException ex) {
                 Logger.getLogger(EcommerceGUIController.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -188,17 +206,27 @@ public class EcommerceGUIController implements Initializable {
     @FXML
     private void logout(Event e) {
         Session session = EcommerceGUI.platform.getSession();
-
+        User user = session.getUser();
+        
         if (session.logout()) {
             Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
 
             try {
                 stage.setScene(new Scene(FXMLLoader.load(getClass().getResource(EcommerceGUI.VIEW_STORE))));
                 stage.show();
+                
+                lblResult = (Label) stage.getScene().lookup("#lblResult");
+                lblResult.setStyle("-fx-text-fill:#00a405");
+                lblResult.setText(user.getName() + " has logged out.");
             } catch (IOException ex) {
                 Logger.getLogger(EcommerceGUIController.class.getName()).log(Level.SEVERE, null, ex);
             }
+        } else {
+            lblResult.setStyle("-fx-text-fill:#f10f0f");
+            lblResult.setText("Failed to logout. Try again later.");
         }
+        
+        lblResult.setVisible(true);
     }
 
     private void loadItems() {
@@ -260,8 +288,16 @@ public class EcommerceGUIController implements Initializable {
                 cartAction.setOnMouseClicked((EventHandler) new EventHandler<MouseEvent>() {
                     @Override
                     public void handle(MouseEvent t) {
-                        session.addToCart(i);
-                        btnCart.setText("Cart: " + session.getCartSize());
+                        if(session.addToCart(i)) {
+                            btnCart.setText("Cart: " + session.getCartSize());
+                            lblResult.setStyle("-fx-text-fill:#00a405");
+                            lblResult.setText("Added " + i.getTitle() + ".");
+                        } else {
+                            lblResult.setStyle("-fx-text-fill:#f10f0f");
+                            lblResult.setText("Failed to add " + i.getTitle() + ".");
+                        }
+                        
+                        lblResult.setVisible(true);
                     }
                 });
             } else if (btnStore != null || btnLogout != null) {
@@ -272,17 +308,42 @@ public class EcommerceGUIController implements Initializable {
                         Stage stage = (Stage) ((Node) t.getSource()).getScene().getWindow();
 
                         try {
+                            String color = "";
+                            String result = "";
+                            
                             if (btnStore != null) {
-                                session.removeFromCart(i);
-                                stage.setScene(new Scene(FXMLLoader.load(getClass().getResource(EcommerceGUI.VIEW_CART))));
+                                if (session.removeFromCart(i)) {
+                                    color = "#00a405";
+                                    result = "Removed " + i.getTitle() + " from cart.";
+                                    stage.setScene(new Scene(FXMLLoader.load(getClass().getResource(EcommerceGUI.VIEW_CART))));
+                                } else {
+                                    color = "#f10f0f";
+                                    result = "Failed to remove " + i.getTitle() + " from cart.";
+                                }
                             } else {
-                                session.removeItemFromStore(i);
-                                stage.setScene(new Scene(FXMLLoader.load(getClass().getResource(EcommerceGUI.VIEW_ITEMS))));
+                                if (session.removeItemFromStore(i)) {
+                                    color = "#00a405";
+                                    result = "Removed " + i.getTitle() + " from store.";
+                                    stage.setScene(new Scene(FXMLLoader.load(getClass().getResource(EcommerceGUI.VIEW_ITEMS))));
+                                } else {
+                                    color = "#f10f0f";
+                                    result = "Failed to remove " + i.getTitle() + " from store.";
+                                }
                             }
                             stage.show();
+                            
+                            lblResult = (Label) stage.getScene().lookup("#lblResult");
+                            lblResult.setStyle("-fx-text-fill:" + color);
+                            lblResult.setText(result);
+                            
                         } catch (IOException ex) {
+                            lblResult.setStyle("-fx-text-fill:#f10f0f");
+                            lblResult.setText("Failed to remove " + i.getTitle() + ".");
+                            
                             Logger.getLogger(EcommerceGUIController.class.getName()).log(Level.SEVERE, null, ex);
                         }
+                        
+                        lblResult.setVisible(true);
                     }
                 });
             }
