@@ -63,7 +63,13 @@ public class Session {
         cart = new ItemCart();
     }
 
+    /**
+     * Returns the current user.
+     * 
+     * @return User 
+     */
     public User getUser() {
+        // EFFECTS: returns current user
         return user;
     }
 
@@ -278,7 +284,7 @@ public class Session {
     /**
      * Retrieves the items of the seller
      *
-     * @return ArrayList
+     * @return ArrayList&lt;Item&gt;
      */
     public ArrayList<Item> getItemStore() {
         // REQUIRES: user instanceof Seller
