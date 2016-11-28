@@ -45,19 +45,30 @@ public class Database {
     //follow the xml format. 
     //AF(c) = Database x such that 
     //          x.dbFile = c.dbFile
-           
     
     //Rep Invariant: 
     //      c.dbFile != null
     
     private File dbFile;
 
-    //Constructor
+    /**
+     * Class Constructor
+     * 
+     * @param filename 
+     */
     public Database(String filename) {
         dbFile = new File(filename);
     }
     
-    //Methods
+    /**
+     * Reads xml file to retrieve all user info and returns all uesrs in as a list.
+     * This method assumes all users are sellers in the xml file.
+     * 
+     * NOTE: In the future when new user roles like customers are added, need
+     *       to generalize this method.
+     * 
+     * @return ArrayList&lt;User&gt; 
+     */
     public ArrayList<User> readUsers() {        
         //MODIFIES: users and item
         //EFFECTS: Stores user and item information into arraylists
@@ -76,6 +87,8 @@ public class Database {
                     ((Seller) user).addItem(item);
                 } while (xml.nextItem());
                 
+                // Get the last item id and set the sller item id to start from
+                // that number for the next item that they add to their store
                 ArrayList<Item> items = ((Seller) user).getItems();
                 String id = ""+items.get(items.size()-1).getId();
                 int uid = Integer.parseInt(id.substring(1));
@@ -92,17 +105,29 @@ public class Database {
         return null;
     }
 
+    /**
+     * Write all users to xml file.
+     * This method assumes all users are sellers when writing to the xml file.
+     * 
+     * NOTE: In the future when new user roles like customers are added, need
+     *       to generalize this method.
+     * 
+     * @param users 
+     */
     public void writeUsers(ArrayList<User> users) {
         //EFFECTS:
 
     }
     
+    /**
+     * Release the reference to the file.
+     */
     public void closeDb() {
         //EFFECTS: Closes the dbFile. 
         this.dbFile = null;
     }
     
-      public boolean repOk(){ 
+    public boolean repOk(){ 
         //EFFECTS: Returns ture if the rep invariant holds for this,
         //otherwise it returns false.
         return !(dbFile == null); 
@@ -110,7 +135,11 @@ public class Database {
     
     @Override
     public String toString(){ 
-        //EFFECTS:Returns the string representation of the abstraction. 
-        return "Users " + readUsers(); 
+        //EFFECTS:Returns the string representation of the abstraction.
+        if (repOk()) {
+            return "Users " + readUsers(); 
+        } else {
+            return "Invalid rep invariant.";
+        }
     }
 }

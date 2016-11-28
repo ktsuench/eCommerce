@@ -52,7 +52,9 @@ public class ItemCart implements ItemList {
     private final ArrayList<Item> items;
     private int numberOfItems;
 
-    //Constructor
+    /**
+     * Class Constructor
+     */
     public ItemCart() {
         //EFFECTS: initinalizes the number of items to 0,
         //         also initinalizes items as a new ArrayList.  
@@ -60,7 +62,11 @@ public class ItemCart implements ItemList {
         this.items = new ArrayList();
     }
 
-    //Methods
+    /**
+     * Returns the number of items in the cart
+     * 
+     * @return int 
+     */
     public int getSizeOfCart() {
         //EFFECTS: Returns the integer number of this. 
         return this.numberOfItems;
@@ -77,6 +83,11 @@ public class ItemCart implements ItemList {
         return (ArrayList<Item>) this.items.clone();
     }
     
+    /**
+     * Adds item to the cart.
+     * 
+     * @param item 
+     */
     @Override
     public void addItem(Item item) {
         //REQUIRES: item != null
@@ -90,22 +101,34 @@ public class ItemCart implements ItemList {
         }
     }
 
+    /**
+     * Removes item from cart if item is in cart.
+     * 
+     * @param item
+     * @return boolean
+     */
     @Override
     public boolean removeItem(Item item) {
         //REQUIES: item != null
         //MODIFIES: items, numberOfItems
         //EFFECTS: overrides the abstract method removeItem. removes the selected 
         //item from the arraylist and decrements numberOfItems by 1.
-       if(item == null){ 
+        
+        if(item == null){ 
            return false; 
-       }else{ 
-          items.remove(item);
-          numberOfItems--;
-          return true;
-       }
-         
+        }else{ 
+            items.remove(item);
+            numberOfItems--;
+            return true;
+        }
     }
     
+    /**
+     * Checks that item is in cart.
+     * 
+     * @param item
+     * @return boolean
+     */
     public boolean containsItem(Item item) {
         //REQUIES: item != null
         //EFFECTS: returns the result of arraylist containing item
@@ -118,6 +141,9 @@ public class ItemCart implements ItemList {
     
     @Override
     public boolean equals(Object o) {
+        //REQUIRES: o != null and o instanceof ItemCart
+        //EFFECTS: returns true if items in o are the same as items in this, 
+        //otherwise returns false
         if (o instanceof ItemCart) {
             ItemCart i = (ItemCart) o;
             
@@ -175,9 +201,12 @@ public class ItemCart implements ItemList {
     
     @Override
     public String toString() {
-      //EFFECTS: Returns the string representation of the abstraction. 
-      return "Number of Items " + getSizeOfCart()+ " items " + getItems();  
-      
+        //EFFECTS: Returns the string representation of the abstraction.
+        if (repOk()) {
+            return "Number of Items " + getSizeOfCart()+ " items " + getItems();  
+        } else {
+            return "Invalid rep invariant.";
+        } 
     }
      
   

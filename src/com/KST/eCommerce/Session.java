@@ -52,7 +52,7 @@ public class Session {
     private ItemCart cart;
 
     /**
-     * Constructor
+     * Class Constructor
      */
     public Session() {
         // MODIFIES: isLoggedIn, user, cart
@@ -304,7 +304,8 @@ public class Session {
      * @return boolean
      */
     public boolean repOK() {
-
+        //EFFECTS: Returns true if the rep invariant holds for this,
+        //otherwise it returns false.
         return user != null;
     }
 
@@ -315,6 +316,7 @@ public class Session {
      */
     @Override
     public String toString() {
+        //EFFECTS: Returns the string representation of the abstraction. 
         if (repOK() == true) {
             String result = "User: " + user.getRole().toString();
             

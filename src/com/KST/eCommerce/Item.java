@@ -28,10 +28,10 @@ package com.KST.eCommerce;
  * @author Tejveer
  */
 public class Item {
-    
+
     //OVERVIEW: Creates an object for each of the items in the database. Each  
     //Item objects is immuatable, with each different item having fixed 
-    //parameters for the title, id ect. 
+    //parameters for the title, id ect.
     
     //Abstraction Function: 
     //Represents individual the items for sale, where each item must have certian 
@@ -40,7 +40,7 @@ public class Item {
     //          x.id = c.id
     //          x.title = c.title
     //          x.description = c.description
-    //          x.price = c.price     
+    //          x.price = c.price
     
     //Rep Invariant: 
     //      c.title instanceof String
@@ -54,10 +54,17 @@ public class Item {
     private final String description;
     private final double price;
 
-    //Constructor
+    /**
+     * Class Constructor
+     *
+     * @param id
+     * @param title
+     * @param description
+     * @param price
+     */
     public Item(int id, String title, String description, double price) {
         //EFFECTS: initializes this to the instance variables. 
-        
+
         this.id = id;
         this.title = title;
         this.description = description;
@@ -65,22 +72,41 @@ public class Item {
 
     }
 
-    //Methods
+    /**
+     * Returns the ID of the item.
+     *
+     * @return int
+     */
     public int getId() {
         //EFFECTS: Returns the integer id number of this. 
         return this.id;
     }
 
+    /**
+     * Returns title of the item.
+     *
+     * @return String
+     */
     public String getTitle() {
         //EFFECTS: Returns the String title of this.
         return this.title;
     }
 
+    /**
+     * Returns the description of the item.
+     *
+     * @return String
+     */
     public String getDescription() {
         //EFFECTS: Returns the String description of this.
         return this.description;
     }
 
+    /**
+     * Returns the price of the item.
+     *
+     * @return double
+     */
     public double getPrice() {
         //EFFECTS: Returns the integer price of this.
         return this.price;
@@ -89,6 +115,8 @@ public class Item {
 
     @Override
     public boolean equals(Object o) {
+        //REQUIRES: o != null and o instance of Item
+        //EFFECTS: returns true if o is the same as this, otherwise false
         if (o == null) {
             return false;
         }
@@ -106,31 +134,36 @@ public class Item {
 
     @Override
     public int hashCode() {
+        // EFFECTS: Returns unique hash code for this.
         int hash = 7;
         hash = 79 * hash + this.id;
         return hash;
     }
-    
+
+    /**
+     * Returns a clone of this.
+     *
+     * @return Item
+     */
     @Override
     public Item clone() {
+        //EFFECTS: Returns new instance of this.
         return new Item(id, title, description, price);
     }
-    
-    public boolean repOk(){ 
-        //EFFECTS: Returns true if the rep invariant holds for this, 
-        //otherwise it returns false.    
-        if(id < 0 || price < 0 ){ 
-            return false;
-        } else { 
-            return true; 
-        }  
-        
-        
-    } 
-    
+
+    public boolean repOk() {
+        //EFFECTS: Returns true if the rep invariant holds for this,
+        //otherwise it returns false.
+        return !(id < 0 || price < 0);
+    }
+
     @Override
     public String toString() {
-        //EFFECTS: Returns the string representation of the abstraction. 
-        return "id " + getId() + " title "+ getTitle() + " description "+ getDescription() + " price "+ getPrice(); 
+        //EFFECTS: Returns the string representation of the abstraction.
+        if (repOk()) {
+            return "id " + getId() + " title " + getTitle() + " description " + getDescription() + " price " + getPrice();
+        } else {
+            return "Invalid rep invariant.";
+        }
     }
 }

@@ -128,6 +128,7 @@ public class Seller extends User implements ItemList {
      * @return int 
      */
     public int createUniqueItemId() {
+        //MODIFIES: this.id and this.itemId
         //EFFECTS: returns the next unique item id
         return Integer.parseInt(""+this.id+(++this.itemId));
     }
@@ -151,7 +152,7 @@ public class Seller extends User implements ItemList {
     @Override
     public void addItem(Item item) {
         //REQUIRES: item != null
-        //MODIFIES: items
+        //MODIFIES: this.items
         //EFFECTS: Overrides the abstract method addItem. Adds the selected item
         //to the arraylist. 
         items.add(item);
@@ -165,7 +166,8 @@ public class Seller extends User implements ItemList {
      */
     @Override
     public boolean removeItem(Item item) {
-        //MODIFIES: items
+        //REQUIRES: item != null
+        //MODIFIES: this.items
         //EFFECTS: Overrides the abstract method removeItem. removes the selected 
         //item from the arraylist.
         if (item == null){ 
@@ -179,6 +181,7 @@ public class Seller extends User implements ItemList {
 
     @Override
     public int hashCode() {
+        // EFFECTS: Returns unique hash code for this.
         int hash = 7;
         hash = 31 * hash + Objects.hashCode(this.items);
         return hash;
@@ -186,6 +189,8 @@ public class Seller extends User implements ItemList {
 
     @Override
     public boolean equals(Object o) {
+        //REQUIRES: o != null and o instanceof Seller
+        //EFFECTS: returns true if o is the same as this, else false
         if (o == null) {
             return false;
         }
@@ -213,7 +218,11 @@ public class Seller extends User implements ItemList {
    
     @Override
     public String toString() {
-       //EFFECTS: Returns the string representation of the abstraction. 
-       return "id " + getId() + " items " + getItems(); 
+        //EFFECTS: Returns the string representation of the abstraction. 
+        if(repOk()) {
+            return "id " + getId() + " items " + getItems(); 
+        } else {
+            return "Invalid rep invariant.";
+        }
     }
 }
