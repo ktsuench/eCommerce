@@ -45,7 +45,7 @@ public class EcommercePlatform {
         Database db = new XMLDatabase("users.data");
 
         this.session = new Session();
-        this.checkout = new PaymentProcessor();
+        this.checkout = new DummyPaymentProcessor();
         this.users = db.readUsers();
 
         db.closeDb();

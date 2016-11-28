@@ -164,7 +164,7 @@ public class SessionTest {
     public void testPurchase() {
         System.out.println("purchase");
         Session instance;
-        PaymentProcessor checkout = new PaymentProcessor();
+        PaymentProcessor checkout = new DummyPaymentProcessor();
         String failProcessing = "Failed to process payment.";
         String passProcessing = "Payment recieved.";
 

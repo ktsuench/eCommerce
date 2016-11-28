@@ -1,7 +1,7 @@
 /*
  * The MIT License
  *
- * Copyright 2016 Kent Tsuenchy, Kureishi Shivanand, and Tejveer Jajj.
+ * Copyright 2016 Ken.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -22,11 +22,22 @@
  * THE SOFTWARE.
  */
 package com.KST.eCommerce;
+
 /**
  *
  * @author Kureishi Shivanand
  */
-public abstract class PaymentProcessor {
+public class DummyPaymentProcessor extends PaymentProcessor {
+    // Overview: Prints message at the end of the session
     
-    public abstract String processPayment();
+    /**
+     * Prints processing message
+     *
+     * @return String
+     */
+    public String processPayment() {
+        // EFFECTS: Returns the message to indicate local session is ending
+        
+        return "Payment recieved.";
+    }
 }
