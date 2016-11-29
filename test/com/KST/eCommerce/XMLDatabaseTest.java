@@ -64,7 +64,7 @@ public class XMLDatabaseTest {
     @Test
     public void testReadUsers() throws FileNotFoundException {
         System.out.println("readUsers");
-        XMLDatabase instance = new XMLDatabase("users.data");
+        XMLDatabase instance = new XMLDatabase("assets/users.data");
         ArrayList<User> expResult = new ArrayList<>();
 
         User bob = new Seller("bob", 1, "12345678");
@@ -101,7 +101,7 @@ public class XMLDatabaseTest {
     public void testWriteUsers() throws FileNotFoundException {
         System.out.println("writeUsers");
         ArrayList<User> users = null;
-        XMLDatabase instance = new XMLDatabase("users.data");
+        XMLDatabase instance = new XMLDatabase("assets/users.data");
         // TODO: Complete write test once write method implmented
         assertTrue(instance.writeUsers(users));
     }
@@ -113,7 +113,7 @@ public class XMLDatabaseTest {
     @Test
     public void testCloseDb() throws FileNotFoundException {
         System.out.println("closeDb");
-        XMLDatabase instance = new XMLDatabase("users.data");
+        XMLDatabase instance = new XMLDatabase("assets/users.data");
         assertTrue(instance.closeDb());
         if (!instance.repOk()) fail("Rep invariant failed.");
     }
@@ -125,7 +125,7 @@ public class XMLDatabaseTest {
     @Test
     public void testRepOk() throws FileNotFoundException {
         System.out.println("repOk");
-        XMLDatabase instance = new XMLDatabase("users.data");
+        XMLDatabase instance = new XMLDatabase("assets/users.data");
         assertTrue(instance.repOk());
     }
 
@@ -136,7 +136,7 @@ public class XMLDatabaseTest {
     @Test
     public void testToString() throws FileNotFoundException {
         System.out.println("toString");
-        XMLDatabase instance = new XMLDatabase("users.data");
+        XMLDatabase instance = new XMLDatabase("assets/users.data");
         ArrayList<User> users = new ArrayList<>();
 
         User bob = new Seller("bob", 1, "12345678");

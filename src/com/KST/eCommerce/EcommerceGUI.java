@@ -53,7 +53,7 @@ public class EcommerceGUI extends Application {
         stage.setScene(new Scene(root));
         
         stage.setTitle("eCommerce");
-        stage.getIcons().add(new Image("file:icon.png"));
+        stage.getIcons().add(new Image("file:assets/icon.png"));
         stage.show();
     }
 

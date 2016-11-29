@@ -45,7 +45,7 @@ public class EcommercePlatform {
     public EcommercePlatform() {
         Database db;
         try {
-            db = new XMLDatabase("users.data");
+            db = new XMLDatabase("assets/users.data");
             
             this.users = db.readUsers();
             
